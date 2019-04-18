@@ -17,6 +17,16 @@ Las diferentes tecnologías que se utilizarán en este proyecto serán:
 	- La base de datos a utilizar será MySQL, utilizaremos una base de datos relacional, la base de datos será el pilar de nuestra aplicación,
 	  y el modelo relacional nos aportará atomicidad, consistencia, ailamiento y durabilidad. 
 
+## Tipos de usuarios:
+
+Para abordar el proyecto se definirán unos roles, a los cuales se les adjudicarán ciertas funcionalidades. 
+Hablamos de un sistema complejo y basaremos varios roles en el tema de la administración de este. Los principales papeles de los usuarios serán:
+
+	- Administrador del sistema.
+	- Administrador.
+	- Empresa.
+
+
 
 ##### Autor: Javier Galera Garrido
 ##### Tutorizado: J.J. Merelo
