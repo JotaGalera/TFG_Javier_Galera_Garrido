@@ -71,6 +71,12 @@ Destinado a la modularización de los servicios ofrecidos, está pensado para fa
 
 (DESCRIPCION FUNCIONES OFRECIDAS)
 
+#### Empresa/Cliente.
+
+Cuentas de usuarios del sistema, que se benefician de los servicios que este ofrece.
+
+(DESCRIPCION FUNCIONES OFRECIDAS)
+
 ##### Autor: Javier Galera Garrido
 ##### Tutorizado: J.J. Merelo
 ##### Empresa: ATISoluciones
