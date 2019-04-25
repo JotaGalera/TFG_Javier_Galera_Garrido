@@ -65,8 +65,11 @@ Roles destinados a las Gestiones del sistema a un nivel global.
 
 (DESCRIPCION FUNCIONES OFRECIDAS)
 
+#### Administrador.
 
+Destinado a la modularización de los servicios ofrecidos, está pensado para facilitar la asignación de distintas tareas sobre el sistema.
 
+(DESCRIPCION FUNCIONES OFRECIDAS)
 
 ##### Autor: Javier Galera Garrido
 ##### Tutorizado: J.J. Merelo
