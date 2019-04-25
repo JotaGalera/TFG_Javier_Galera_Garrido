@@ -1,14 +1,38 @@
 # TFG: Sistema de Cartelería Digital
 
+## El problema:
+
+Se quiere producir un sistema que pueda gestionar una reserva de espacios y que además pueda reproducir contenido multimedia en diferentes dispositivos.
+
+___Reserva de espacio___: Un usuario del sistema, podrá hacer reservas de "espacios"(aulas,despachos,...), junto con artículos que ofrece el sistema, que sean adecuados para dicho espacio.
+Los artículos varían en función de la ubicación en la que se encuentre nuestro usuario. Y podrán o no estar disponibles según la ubicación en la que se encuentre.
+
+___Contenido multimedia___: Al sistema podrán conectarse diferentes dispositivos, para que estos puedan reproducir el contenido que el sistema les facilite.
+
+
 ## ¿En qué consiste?
 
-En este proyecto abordaremos un objetivo general, la Cartelería Digital, trataremos de ofrecer un servicio
-en el cual podremos transmitir cierta información digital ( Videos o imágenes ) a distintos dispositivos (tablets,televisiones,...).
+En este proyecto se abordan diferentes objetivos, para ello se construirá un sistema central, el cual podrá evolucionar a partir de diferentes modulos. El sistema nace de la idea de los
+S.O. microkernel, los cuales tienen un núcleo del sistema y el resto de programas se acoplan a él. Consiguiendo así un sistema robusto e independiente de futuras versiones. De esta manera
+los futuros cambios surgidos en los módulos y/o en el sistema central , no repercutirá en el resto del sistema.
 
-Además de esta gestión de multimedia, ofrecerá otros servicios como reservar espacios( Aulas, medios audiovisuales, etc.)
+El nucleo de nuestro sistema será un poco mas grueso que la descripción como tal de un microkernel, este será la base centralizada de nuestro sistema y alojará las funciones presentadas anteriormente.
 
-Este servicio se ofrecerá a través de una web. Dicha página web se verá respaldada con una API Rest, que será la encargada de la comunicación
-de la página con la base de datos.
+/******
+El primer módulo que se le acoplará será "Cartelería Digital".
+
+Trataremos de ofrecer un servicio en el cual podremos transmitir cierta información digital ( Videos o imágenes ) a distintos dispositivos (tablets,televisiones,...).
+
+******/
+
+
+Nuestro sistema cuenta con 2 interfaces, una de ellas para el usuario y otra para gestionar a este.
+
+En la primera, (DESCRIPCION: GESTION MULTIMEDIA Y RESERVA DE ESPACIOS.)
+
+En la segunda, (DESCRIPCION: GESTION DEL SISTEMA.)
+
+La comunicación entre los dispositivos , la página y la BBDD será via API.  
 
 Las diferentes tecnologías que se utilizarán en este proyecto serán:
 
@@ -22,9 +46,17 @@ Las diferentes tecnologías que se utilizarán en este proyecto serán:
 Para abordar el proyecto se definirán unos roles, a los cuales se les adjudicarán ciertas funcionalidades. 
 Hablamos de un sistema complejo y basaremos varios roles en el tema de la administración de este. Los principales papeles de los usuarios serán:
 
+	- Unidad de Mantenimiento.
 	- Administrador del sistema.
 	- Administrador.
 	- Empresa.
+
+
+#### La unidad de mantenimiento.
+
+Este rol , va enfocado a la empresa productora de la aplicación, tiene acceso interno a esta, y podrá trabajar sobre futuras actualizaciones sobre el sistema, pudiendo así
+modificar a este añadiendole nuevos modulos.
+
 
 
 
