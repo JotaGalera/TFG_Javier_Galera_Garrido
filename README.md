@@ -52,10 +52,18 @@ Hablamos de un sistema complejo y basaremos varios roles en el tema de la admini
 	- Empresa.
 
 
-#### La unidad de mantenimiento.
+#### Unidad de mantenimiento.
 
 Este rol , va enfocado a la empresa productora de la aplicación, tiene acceso interno a esta, y podrá trabajar sobre futuras actualizaciones sobre el sistema, pudiendo así
 modificar a este añadiendole nuevos modulos.
+
+(DESCRIPCIÓN FUNCIONES OFRECIDAS)
+
+#### Administrador del sistema.
+
+Roles destinados a las Gestiones del sistema a un nivel global.
+
+(DESCRIPCION FUNCIONES OFRECIDAS)
 
 
 
