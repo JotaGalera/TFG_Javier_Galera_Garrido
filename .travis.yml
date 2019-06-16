@@ -1,15 +1,12 @@
 language: php
 
 php:
-  - 5.6
-  - 7.0
   - 7.1
 
 before_script:
   - cp .env.travis .env
   - composer self-update
   - php artisan key:generate
-  - php artisan jwt:generate
   - php artisan migrate
 
 before_install:
