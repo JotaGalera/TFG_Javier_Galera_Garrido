@@ -13,7 +13,7 @@ class GisControllerTest extends TestCase
      * @return void
      */
     public function gisTest(){
-        $response = $this->call('GET','GisController');
+        $response = $this->action('GET','GisController');
 
         $response->assertStatus(200);
     }

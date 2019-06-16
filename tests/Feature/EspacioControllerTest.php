@@ -14,7 +14,7 @@ class EspacioControllerTest extends TestCase
      */
     public function espacioTest()
     {
-        $response = $this->action('GET','\app\Http\Controllers\EspacioController');
+        $response = $this->action('GET','EspacioController');
 
         $response->assertStatus(200);
     }
