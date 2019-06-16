@@ -5,14 +5,14 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class testRoutes extends TestCase
+class RoutesTest extends TestCase
 {
     /**
      * Comprueba si funciona la route "ubicacion"
      *
      * @return void
      */
-    public function ubicacion()
+    public function ubicacionTest()
     {
         $response = $this->get('/ubicacion');
 
@@ -24,7 +24,7 @@ class testRoutes extends TestCase
      *
      * @return void
      */
-    public function articulo()
+    public function articuloTest()
     {
         $response = $this->get('/articulo');
 
@@ -36,7 +36,7 @@ class testRoutes extends TestCase
      *
      * @return void
      */
-    public function listado()
+    public function listadoTest()
     {
         $response = $this->get('/listado');
 
@@ -48,7 +48,7 @@ class testRoutes extends TestCase
      *
      * @return void
      */
-    public function gis(){
+    public function gisTest(){
         $response = $this->get('/gis');
 
         $response->assertStatus(200);
@@ -59,7 +59,7 @@ class testRoutes extends TestCase
      *
      * @return void
      */
-    public function usuario(){
+    public function usuarioTest(){
         $response = $this->get('/gis');
 
         $response->assertStatus(200);
