@@ -313,8 +313,8 @@ CREATE TABLE `roles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `special` enum('all-access','no-access') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `roles_name_unique` (`name`),
-  UNIQUE KEY `roles_slug_unique` (`slug`)
+  KEY `roles_name_unique` (`name`),
+  KEY `roles_slug_unique` (`slug`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -350,9 +350,9 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `users_user_unique` (`user`),
-  UNIQUE KEY `users_email_unique` (`email`),
-  UNIQUE KEY `users_rfid_tag_unique` (`rfid_tag`)
+  KEY `users_user_unique` (`user`),
+  KEY `users_email_unique` (`email`),
+  KEY `users_rfid_tag_unique` (`rfid_tag`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
