@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class EspacioControllerTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * @test
      * Comprueba si funciona el controllador "espacio"
@@ -15,7 +16,7 @@ class EspacioControllerTest extends TestCase
      */
     public function espacioTest()
     {
-        $response = $this->action('GET','EspacioController');
+        $response = $this->get('/espacio');
 
         $response->assertStatus(200);
     }

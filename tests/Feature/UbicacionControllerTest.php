@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UbicacionControllerTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * @test
      * Comprueba si funciona el controllador "ubicacion"
@@ -15,7 +16,7 @@ class UbicacionControllerTest extends TestCase
      */
     public function ubicacionTest()
     {
-        $response = $this->action('GET','UbicacionController@index');
+        $response = $this->get('/ubicacion');
 
         $response->assertStatus(200);
     }

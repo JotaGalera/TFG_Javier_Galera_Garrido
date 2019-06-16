@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ArticuloControllerTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * @test
      * Comprueba si funciona el controllador "articulo"
@@ -16,7 +17,7 @@ class ArticuloControllerTest extends TestCase
     
     public function articuloTest()
     {
-        $response = $this->action('GET','ArticuloController');
+        $response = $this->get('/articulo');
 
         $response->assertStatus(200);
     }

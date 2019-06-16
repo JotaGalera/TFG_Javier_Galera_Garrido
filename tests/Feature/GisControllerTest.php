@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class GisControllerTest extends TestCase
 {   
+
+    use RefreshDatabase;
     /**
      * @test
      * Comprueba si funciona el controllador "gis"
@@ -14,7 +16,7 @@ class GisControllerTest extends TestCase
      * @return void
      */
     public function gisTest(){
-        $response = $this->action('GET','GisController');
+        $response = $this->get('/gis');
 
         $response->assertStatus(200);
     }
