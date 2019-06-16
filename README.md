@@ -1,5 +1,7 @@
 # TFG: Sistema de Cartelería Digital
 
+[![Build Status](https://travis-ci.com/JotaGalera/TFG_Javier_Galera_Garrido.svg?branch=master)](https://travis-ci.com/JotaGalera/TFG_Javier_Galera_Garrido)
+
 ## El problema:
 
 Se quiere producir un sistema que pueda gestionar una reserva de espacios.
