@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class GisControllerTest extends TestCase
 {   
     /**
+     * @test
      * Comprueba si funciona el controllador "gis"
      *
      * @return void

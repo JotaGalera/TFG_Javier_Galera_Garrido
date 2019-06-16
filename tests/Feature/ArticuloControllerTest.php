@@ -8,10 +8,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class ArticuloControllerTest extends TestCase
 {
     /**
+     * @test
      * Comprueba si funciona el controllador "articulo"
      *
      * @return void
      */
+    
     public function articuloTest()
     {
         $response = $this->action('GET','ArticuloController');

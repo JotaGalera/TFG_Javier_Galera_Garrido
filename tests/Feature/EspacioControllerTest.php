@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class EspacioControllerTest extends TestCase
 {
     /**
+     * @test
      * Comprueba si funciona el controllador "espacio"
      *
      * @return void

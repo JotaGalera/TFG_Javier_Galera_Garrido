@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class UbicacionControllerTest extends TestCase
 {
     /**
+     * @test
      * Comprueba si funciona el controllador "ubicacion"
      *
      * @return void
