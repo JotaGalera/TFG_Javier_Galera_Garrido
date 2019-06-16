@@ -4,10 +4,11 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class EspacioControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    
     /**
      * @test
      * Comprueba si funciona el controllador "espacio"
@@ -15,9 +16,11 @@ class EspacioControllerTest extends TestCase
      * @return void
      */
     public function espacioTest()
-    {
+    {   
         $response = $this->get('/espacio');
 
-        $response->assertStatus(200);
+        //$response->dump();
+
+        $response->assertStatus(302); //Redirect por no ser usuario del sistema
     }
 }

@@ -24,11 +24,11 @@ Route::get('/dev', function(){
 });
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('gis','GisController@index')->name('gis');
+
 
 Route::middleware(['auth'])->group(function(){
 
-
+	Route::get('gis','GisController@index')->name('gis');
 	Route::get('ubicacion', 'UbicacionController@index')->name('ubicacion');
 	Route::get('articulo','ArticuloController@index')->name('articulo');
 	Route::get('listado','EspacioController@index')->name('listado');
