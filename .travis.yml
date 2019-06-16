@@ -7,12 +7,13 @@ before_script:
   - cp .env.travis .env
   - composer self-update
   - php artisan key:generate
-  - mysql -u root tfgjgg_test < inicioBBDD.sql
+  
   - php artisan migrate
 
 before_install:
   - mysql -e 'CREATE DATABASE tfgjgg_test;'
 
+  - mysql -u root tfgjgg_test < inicioBBDD.sql
 script:
   - phpunit
 
