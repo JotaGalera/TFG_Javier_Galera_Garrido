@@ -8,60 +8,51 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class RoutesTest extends TestCase
 {
     /**
-     * Comprueba si funciona la route "ubicacion"
+     * Comprueba si funciona el controllador "ubicacion"
      *
      * @return void
      */
     public function ubicacionTest()
     {
-        $response = $this->get('/ubicacion');
+        $response = $this->action('GET','\app\Http\Controllers\UbicacionController');
 
         $response->assertStatus(200);
     }
 
     /**
-     * Comprueba si funciona la route "articulo"
+     * Comprueba si funciona el controllador "articulo"
      *
      * @return void
      */
     public function articuloTest()
     {
-        $response = $this->get('/articulo');
+        $response = $this->call('GET','\app\Http\Controllers\ArticuloController');
 
         $response->assertStatus(200);
     }
 
     /**
-     * Comprueba si funciona la route "listado"
+     * Comprueba si funciona el controllador "espacio"
      *
      * @return void
      */
     public function listadoTest()
     {
-        $response = $this->get('/listado');
+        $response = $this->call('GET','\app\Http\Controllers\EspacioController');
 
         $response->assertStatus(200);
     }
     
     /**
-     * Comprueba si funciona la route "gis"
+     * Comprueba si funciona el controllador "gis"
      *
      * @return void
      */
     public function gisTest(){
-        $response = $this->get('/gis');
+        $response = $this->call('GET','\app\Http\Controllers\GisController');
 
         $response->assertStatus(200);
     }
 
-    /**
-     * Comprueba si funciona la route "user"
-     *
-     * @return void
-     */
-    public function usuarioTest(){
-        $response = $this->get('/gis');
-
-        $response->assertStatus(200);
-    }
+    
 }
