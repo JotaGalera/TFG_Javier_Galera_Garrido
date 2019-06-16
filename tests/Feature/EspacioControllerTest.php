@@ -5,10 +5,8 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class RoutesTest extends TestCase
+class EspacioControllerTest extends TestCase
 {
-    
-
     /**
      * Comprueba si funciona el controllador "espacio"
      *
@@ -16,7 +14,7 @@ class RoutesTest extends TestCase
      */
     public function espacioTest()
     {
-        $response = $this->call('GET','\app\Http\Controllers\EspacioController');
+        $response = $this->action('GET','\app\Http\Controllers\EspacioController');
 
         $response->assertStatus(200);
     }

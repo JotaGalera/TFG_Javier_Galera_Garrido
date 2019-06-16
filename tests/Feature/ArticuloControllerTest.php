@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class RoutesTest extends TestCase
+class ArticuloControllerTest extends TestCase
 {
     /**
      * Comprueba si funciona el controllador "articulo"
