@@ -6,7 +6,7 @@ use Yajra\Datatables\Datatables;
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
-Route::view('/gis', 'gis.gis')->name('gis');
+
 
 Route::get('/dev', function(){
 	$id_articulo = 2;
@@ -24,6 +24,7 @@ Route::get('/dev', function(){
 });
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('gis','GisController@index')->name('gis');
 
 Route::middleware(['auth'])->group(function(){
 
