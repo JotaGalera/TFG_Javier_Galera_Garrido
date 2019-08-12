@@ -27,5 +27,9 @@ class Espacio extends Model
     {
         return $this->hasMany('App\Articulo');
     }
+    public function Coordenadas()
+    {
+        return $this->belongsToMany('App\Coordenadas');
+    }
 
 }
