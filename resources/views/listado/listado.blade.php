@@ -18,6 +18,13 @@
         <div class="col-xs-12">
             <a href="#" class="btn btn-success" id="newUbicacion"><b><i class="fa fa-fw fa-plus"></i> Nuevo</b></a>
         </div>
+        <div class="form-group col-xs-4 pull-right">
+        <div class="form-group">
+            <div style="padding-right: 10px;">
+                <select id="ubicacion" class="form-control select2" name="state"></select>
+            </div>
+            </div>
+        </div>
         <div class="clearfix"></div>
     </div>
     <div class="row">
@@ -135,13 +142,109 @@
 
     </div>
 
-
+    <!--  MODAL SECCION UPDATE ESPACIOS-->
+    <div class="modal fade" id="modalEspacioUpdate">
+            <form method="PUT" action="" id="formEspacio" role="form">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title-space-edit">Editar espacio</h4>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="box-body">
+                                <div class="form-group col-md-6">
+                                    <label>Piso</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                        <input type="number" class="form-control" placeholder="Piso" name="floor_space" id="floor_space">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Número</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-road"></i></span>
+                                        <input type="number" class="form-control" placeholder="Número" name="number_space" id="number_space">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Descripción</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-list-ol"></i></span>
+                                        <input type="text" class="form-control" placeholder="Descripción" name="description_space" id="description_space">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="id_ubicacion" id="id_ubicacion">
+                        <button type="button" class="btn btn-primary pull-left" id="btn-new-space">Añadir y Cerrar</button>
+                        <button type="button" class="btn btn-primary pull-left" id="btn-update-space" style="display: none">Guardar y Cerrar</button>
+                        <button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+                </div>
+            </form>
+    </div>
 
 </section>
 <!-- /.content -->
 @stop
 @push('scripts')
 <script>
+
+$('#ubicacion').select2({
+    minimumResultsForSearch: Infinity,
+    placeholder: " - Busca y selecciona una ubicación - ",
+    ajax: {
+        url: '/ubicacion/getubicacionesuser/',
+        processResults: function (data) {
+          return {
+            results: $.map(data, function(obj) {
+                return { id: obj.id, text: obj.name };
+            })
+          };
+
+        }
+    }
+});
+
+$('#ubicacion').on('select2:select',function(e){
+    var data = e.params.data;
+    var newOption = new Option(data.text, data.id, false, false);
+    
+    $('#tableEspacio').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "processing" : true,
+      "serverSide": true,
+      "scrollX": true,
+      "destroy": true,
+      "ajax": "/espacio/getdatatable_filtrado/"+data['id'],
+      "columns":[
+        {data:'id'},
+        {data:'name_ubicacion'},
+        {data:'floor'},
+        {data:'number'},
+        {data:'description' },
+        {data:'action', orderable:false, searchable: false},
+      ],
+      dom: 'Bfrtip',
+      buttons: [
+          'csv', 'excel', 'pdf'
+      ]
+    });
+});
 
 $(document).ready(function() {
     
@@ -171,6 +274,29 @@ $(document).ready(function() {
                 'csv', 'excel', 'pdf'
             ]
         });
+    });
+
+    $(document).on('click','#newUbicacion',function(){
+        $('#modalEspacioUpdate').modal('show');
+    });
+
+    $("#btn-new-space").click(function(){
+        $.ajax({
+            url : 'espacio',
+            type : 'POST',
+            data: $("#formEspacio").serialize(),
+            success:function(data)
+            {
+                console.log(data);
+                alertify.success('Espacio AÑADIDO con éxito');
+                $('#tableEspacio').DataTable().ajax.reload(null, false);
+                $('#modalEspacioUpdate').modal('hide');
+            },
+            error:function(data)
+            {
+                console.log(data);
+            }
+        })
     });
 
     $('#btn-add-articulo').click(function() {
@@ -270,12 +396,15 @@ $(document).ready(function() {
         $.ajax({
             type: 'PUT',
             url: 'articulo/desasignarEspacio/'+id_articulo,
-
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "id": id_articulo
+                },
             success:function(data)
             {
                 console.log(data);
                 alertify.success('Asociación articulo-espacio eliminada correctamente.');
-                
+                $('#tableArticulosEspacio').DataTable().ajax.reload(null, false);
             },
             error:function(data)
             {
