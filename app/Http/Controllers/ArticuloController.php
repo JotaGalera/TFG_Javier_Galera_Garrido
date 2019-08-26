@@ -18,7 +18,6 @@ class ArticuloController extends Controller
   {
     $obj = \App\Articulo::with('Ubicacion')->with('Espacio')->find($id);
     return $obj;
-    //return json_encode($obj);
   }
 
 

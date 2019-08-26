@@ -1,6 +1,10 @@
 <?php
 //COSAS PARA /DEV//
+
+use Illuminate\Support\Collection as Collection;
 use Yajra\Datatables\Datatables;
+use \App\Espacio;
+use \App\Articulo;
 ///////////////////
 
 Auth::routes();
@@ -9,18 +13,11 @@ Route::get('/', 'HomeController@index');
 
 
 Route::get('/dev', function(){
-	$id_articulo = 2;
+	$espacio_id=3;
+	$datatable = \App\Coordenadas::where('espacio_id','=',$espacio_id)->get();
 
-	//DB::enableQueryLog(); // Enable query log
-
-// Your Eloquent query
-	$obj = \App\Articulo::find($id_articulo);
-	$obj->espacio_id    = null;
-	$obj->update();
-	
-
-	//dd(DB::getQueryLog()); 
-	return $obj;
+        return json_encode(Datatables::of($datatable)
+        ->make(true));
 });
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -55,7 +52,13 @@ Route::middleware(['auth'])->group(function(){
 	//ROUTES espacio
 	Route::get('espacio/getdatatable/{ubicacion_id}','EspacioController@getDataTable')->name('espacio.getdatatable')
 		->middleware('permission:espacio.index');
+	Route::get('espacio/getdatatable_filtrado/{ubicacion_id}','EspacioController@getDataTable_filtrado')->name('espacio.getdatatable_filtrado')
+		->middleware('permission:espacio.index');
 	Route::get('espacio/getdatatableall','EspacioController@getDataTableAll')->name('espacio.getdatatableall')
+		->middleware('permission:espacio.index');
+	Route::get('espacio/getespacioubicacion/{ubicacion_id}','EspacioController@getEspacioUbicacion')->name('espacio.getespacioubicacion')
+		->middleware('permission:espacio.index');
+	Route::post('espacio/generateJson','EspacioController@generateJson')->name('espacio.generatejson')
 		->middleware('permission:espacio.index');
 	Route::resource('espacio','EspacioController')
 		->middleware('permission:espacio.index');
@@ -76,6 +79,11 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('articulo','ArticuloController')
 		->middleware('permission:articulo.index');
 
+	//ROUTE coordenadas
+	Route::get('coordenadas/getdatatable/{espacio_id}','CoordenadasController@getDatatable')->name('coordenadas.getdatatable')
+		->middleware('permission:coordenadas.index');
+	Route::resource('coordenadas','CoordenadasController')
+		->middleware('permission:coordenadas.index');
 
 	//ROUTE json
 	Route::get('data.json',function(){
