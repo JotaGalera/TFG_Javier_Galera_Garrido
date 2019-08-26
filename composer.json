@@ -9,7 +9,7 @@
         "anam/phantomjs-linux-x86-binary": "^2.1",
         "anam/phantommagick": "^2.0",
         "caffeinated/shinobi": "^3.3",
-        "doctrine/dbal": "^2.9",
+        "doctrine/dbal": "^2.6",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/passport": "^7.1",
