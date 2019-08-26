@@ -8,6 +8,32 @@
 
 ## CHANGELOG
 
+### v4.5.4 - 08-22-2019
+
+- Add missing buttons columns & exportOptions setter.
+
+### v4.5.3 - 08-17-2019
+
+- Fix error when no editor fields was defined. [52f0537c5913c84fb5e8a58bbd7db142b987daaf](https://github.com/yajra/laravel-datatables-html/commit/52f0537c5913c84fb5e8a58bbd7db142b987daaf)
+- Return false when validating callback value is an array or an object. [b76cdf806c85368fce70a9034153dec6e107dd2f](https://github.com/yajra/laravel-datatables-html/commit/52f0537c5913c84fb5e8a58bbd7db142b987daaf)
+
+### v4.5.2 - 08-13-2019
+
+- Fix [#102] language key and use i18n. [#103], credits to @matteocostantini.
+
+### v4.5.1 - 07-05-2019
+
+- Add fluent column footer setter. [#101]
+
+### v4.5.0 - 06-27-2019
+
+- Add ability to generate dataTables options for external js use. [#99]
+
+### v4.4.1 - 04-25-2019
+
+- Add title attribute for table headers. [#94], credits to @HOFFMACHINE.
+
+
 ### v4.4.0 - 02-27-2019
 
 - Add support for Laravel 5.8 / DataTables v9.0 [#90].
@@ -395,6 +421,11 @@ To `created_at` with title `Created At`
 [#86]: https://github.com/yajra/laravel-datatables-html/pull/86
 [#87]: https://github.com/yajra/laravel-datatables-html/pull/87
 [#90]: https://github.com/yajra/laravel-datatables-html/pull/90
+[#94]: https://github.com/yajra/laravel-datatables-html/pull/94
+[#99]: https://github.com/yajra/laravel-datatables-html/pull/99
+[#101]: https://github.com/yajra/laravel-datatables-html/pull/101
+[#103]: https://github.com/yajra/laravel-datatables-html/pull/103
 
 [#3]: https://github.com/yajra/laravel-datatables-html/issues/3
 [#58]: https://github.com/yajra/laravel-datatables-html/issues/58
+[#102]: https://github.com/yajra/laravel-datatables-html/issues/102

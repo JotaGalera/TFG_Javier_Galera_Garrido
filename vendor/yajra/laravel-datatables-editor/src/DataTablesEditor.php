@@ -58,7 +58,8 @@ abstract class DataTablesEditor
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $data) {
-            $validator = $this->getValidationFactory()->make($data, $this->createRules(), $this->createMessages(), $this->attributes());
+            $validator = $this->getValidationFactory()
+                              ->make($data, $this->createRules(), $this->createMessages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -66,6 +67,8 @@ abstract class DataTablesEditor
 
                 continue;
             }
+
+            $instance->fill($data);
 
             if (method_exists($this, 'creating')) {
                 $data = $this->creating($instance, $data);
@@ -75,18 +78,18 @@ abstract class DataTablesEditor
                 $data = $this->saving($instance, $data);
             }
 
-            $model = $instance->newQuery()->create($data);
-            $model->setAttribute('DT_RowId', $model->getKey());
+            $instance->save();
 
             if (method_exists($this, 'created')) {
-                $this->created($model, $data);
+                $instance = $this->created($instance, $data);
             }
 
             if (method_exists($this, 'saved')) {
-                $this->saved($model, $data);
+                $instance = $this->saved($instance, $data);
             }
 
-            $affected[] = $model;
+            $instance->setAttribute('DT_RowId', $instance->getKey());
+            $affected[] = $instance;
         }
 
         if (! $errors) {
@@ -101,15 +104,15 @@ abstract class DataTablesEditor
     /**
      * Resolve model to used.
      *
-     * @return Model
+     * @return Model|\Illuminate\Database\Eloquent\SoftDeletes
      */
     protected function resolveModel()
     {
-        if ($this->model instanceof Model) {
-            return $this->model;
+        if (! $this->model instanceof Model) {
+            $this->model = new $this->model;
         }
 
-        return new $this->model;
+        return $this->model;
     }
 
     /**
@@ -125,6 +128,16 @@ abstract class DataTablesEditor
      * @return array
      */
     protected function createMessages()
+    {
+        return [];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
     {
         return [];
     }
@@ -172,15 +185,16 @@ abstract class DataTablesEditor
      */
     public function edit(Request $request)
     {
-        $instance   = $this->resolveModel();
-        $connection = $instance->getConnection();
+        $connection = $this->getBuilder()->getConnection();
         $affected   = [];
         $errors     = [];
 
+
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
-            $model     = $instance->newQuery()->find($key);
-            $validator = $this->getValidationFactory()->make($data, $this->editRules($model), $this->editMessages(), $this->attributes());
+            $model     = $this->getBuilder()->findOrFail($key);
+            $validator = $this->getValidationFactory()
+                              ->make($data, $this->editRules($model), $this->editMessages(), $this->attributes());
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -188,6 +202,8 @@ abstract class DataTablesEditor
 
                 continue;
             }
+
+            $model->fill($data);
 
             if (method_exists($this, 'updating')) {
                 $data = $this->updating($model, $data);
@@ -197,14 +213,14 @@ abstract class DataTablesEditor
                 $data = $this->saving($model, $data);
             }
 
-            $model->update($data);
+            $model->save();
 
             if (method_exists($this, 'updated')) {
-                $this->updated($model, $data);
+                $model = $this->updated($model, $data);
             }
 
             if (method_exists($this, 'saved')) {
-                $this->saved($model, $data);
+                $model = $this->saved($model, $data);
             }
 
             $model->setAttribute('DT_RowId', $model->getKey());
@@ -218,6 +234,22 @@ abstract class DataTablesEditor
         }
 
         return $this->toJson($affected, $errors);
+    }
+
+    /**
+     * Get elqouent builder of the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function getBuilder()
+    {
+        $model = $this->resolveModel();
+
+        if (in_array(\Illuminate\Database\Eloquent\SoftDeletes::class, class_uses($model))) {
+            return $model->newQuery()->withTrashed();
+        }
+
+        return $model->newQuery();
     }
 
     /**
@@ -246,14 +278,13 @@ abstract class DataTablesEditor
      */
     public function remove(Request $request)
     {
-        $instance   = $this->resolveModel();
-        $connection = $instance->getConnection();
+        $connection = $this->getBuilder()->getConnection();
         $affected   = [];
         $errors     = [];
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
-            $model     = $instance->newQuery()->find($key);
+            $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
                               ->make($data, $this->removeRules($model), $this->removeMessages(), $this->attributes());
             if ($validator->fails()) {
@@ -265,6 +296,7 @@ abstract class DataTablesEditor
             }
 
             try {
+                $deleted = clone $model;
                 if (method_exists($this, 'deleting')) {
                     $this->deleting($model, $data);
                 }
@@ -272,14 +304,17 @@ abstract class DataTablesEditor
                 $model->delete();
 
                 if (method_exists($this, 'deleted')) {
-                    $this->deleted($model, $data);
+                    $this->deleted($deleted, $data);
                 }
             } catch (QueryException $exception) {
-                $error    = config('app.debug') ? $exception->errorInfo[2] : $this->removeExceptionMessage($exception, $model);
+                $error = config('app.debug')
+                    ? $exception->errorInfo[2]
+                    : $this->removeExceptionMessage($exception, $model);
+
                 $errors[] = $error;
             }
 
-            $affected[] = $model;
+            $affected[] = $deleted;
         }
 
         if (! $errors) {
@@ -318,12 +353,35 @@ abstract class DataTablesEditor
      * Get remove query exception message.
      *
      * @param QueryException $exception
-     * @param Model          $model
+     * @param Model $model
      * @return string
      */
     protected function removeExceptionMessage(QueryException $exception, Model $model)
     {
         return "Record {$model->getKey()} is protected and cannot be deleted!";
+    }
+
+    /**
+     * Get dataTables model.
+     *
+     * @return Model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set the dataTables model on runtime.
+     *
+     * @param Model|string $model
+     * @return DataTablesEditor
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
     }
 
     /**
@@ -340,15 +398,5 @@ abstract class DataTablesEditor
             'data'        => [],
             'fieldErrors' => $errors,
         ]);
-    }
-
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [];
     }
 }
