@@ -46,6 +46,8 @@
 
         <!-- LeafLet -->
         <link rel="stylesheet" href="/admin-lte/plugins/leaflet/leaflet.css" />
+        <link rel="stylesheet" href="/admin-lte/plugins/leaflet/Control.Coordinates.css" />
+        
 
     </head>
 
@@ -378,12 +380,13 @@
 <script src="/admin-lte/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 <!-- iCheck -->
 <script src="/admin-lte/plugins/iCheck/icheck.min.js"></script>
-<!-->LeafLet -->
-<!--<script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet-src.js"></script>
-<script src="https://unpkg.com/esri-leaflet@1.0.4/dist/esri-leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/cbaines/leaflet-indoor/leaflet-indoor.js"></script>-->
+<!-- LeafLet -->
+
 <script src="/admin-lte/plugins/leaflet/leaflet-src.js"></script>
 <script src="/admin-lte/plugins/leaflet/leaflet-indoor.js"></script>
+
+<!-- LeafLet Coordenadas Mouse -->
+<script src="/admin-lte/plugins/leaflet/Control.Coordinates.js"></script>
  <!-- Mapbox -->
  <script src='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js'></script>
 @stack('scripts')
