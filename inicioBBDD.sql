@@ -184,9 +184,9 @@ DROP TABLE IF EXISTS `permission_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permission_role` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `permission_id` int(10) unsigned NOT NULL,
-  `role_id` int(10) unsigned NOT NULL,
+  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
+  `permission_id` bigint(10) unsigned NOT NULL,
+  `role_id` bigint(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -245,7 +245,7 @@ DROP TABLE IF EXISTS `permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permissions` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
@@ -274,9 +274,9 @@ DROP TABLE IF EXISTS `role_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `role_user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `role_id` int(10) unsigned NOT NULL,
-  `user_id` int(10) unsigned NOT NULL,
+  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` bigint(10) unsigned NOT NULL,
+  `user_id` bigint(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -336,7 +336,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
