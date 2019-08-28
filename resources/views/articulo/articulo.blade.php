@@ -101,6 +101,13 @@
                                   <input type="text" class="form-control" placeholder="Descripción" name="description" id="description">
                               </div>
                           </div>
+                          <div class="form-group col-md-6">
+                              <label>Precio</label>
+                              <div class="input-group">
+                                  <span class="input-group-addon"><i class="fa fa-list-ol"></i></span>
+                                  <input type="number" class="form-control" placeholder="0.0" name="precio" id="precio">
+                              </div>
+                          </div>
                       </div>
                   </div>
               </div>
@@ -261,6 +268,7 @@ $(document).ready(function() {
           $('#name').val(data.name);
           $('#id').val(id);
           $('#description').val(data.description);
+          $('#precio').val(data.precio);
 
           $('#modalArticulo').modal('show');
           $('#btn-update').css('display','inline');

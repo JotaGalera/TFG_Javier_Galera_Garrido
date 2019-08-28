@@ -14,7 +14,7 @@ class Espacio extends Model
     protected $dates = ['deleted_at'];
 
 	  protected $fillable = [
-        'ubicacion_id','description','floor','number'
+        'ubicacion_id','description','floor','number','precio'
     ];
     /**
      * The users that belong to the role.

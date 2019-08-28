@@ -29,7 +29,8 @@ class ArticuloController extends Controller
       'ubicacion_mod'    => 'required',
       'name'             => 'required|max:255',
       'numero_serie'     => 'max:255',
-      'description'      => 'max:255'
+      'description'      => 'max:255',
+      'precio'           => 'max:255',
     ]);
 
     $obj = \App\Articulo::create([
@@ -37,6 +38,7 @@ class ArticuloController extends Controller
       'description'     => $validateData['description'],
       'numero_serie'    => $validateData['numero_serie'],
       'ubicacion_id'    => $validateData['ubicacion_mod'],
+      'precio'          => $validateData['precio'],
     ]);
 
     return response()->json(['success'=>'Articulo añadido correctamente.']);
@@ -48,7 +50,8 @@ class ArticuloController extends Controller
       'ubicacion_mod'    => 'required',
       'name'             => 'required|max:255',
       'numero_serie'     => 'max:255',
-      'description'      => 'max:255'
+      'description'      => 'max:255',
+      'precio'           => 'max:255',
     ]);
 
     $id = $request->input('id');
@@ -58,6 +61,7 @@ class ArticuloController extends Controller
     $obj->ubicacion_id  = $validateData['ubicacion_mod'];
     $obj->numero_serie  = $validateData['numero_serie'];
     $obj->description   = $validateData['description'];
+    $obj->precio        = $validateData['precio_space'];
     $obj->update();
 
     return response()->json(['success'=>'Articulo modificado correctamente.']);

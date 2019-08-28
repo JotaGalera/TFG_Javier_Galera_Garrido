@@ -39,6 +39,7 @@ class EspacioController extends Controller
             'number'        => $validateData['number_space'],
             'description'   => $request['description_space'],
             'ubicacion_id'  => $request['id_ubicacion'],
+            'precio'        => $request['precio_space'],
         ]);
 
       return response()->json(['success'=>'Articulo añadido correctamente.']);

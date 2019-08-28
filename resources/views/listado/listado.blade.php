@@ -15,16 +15,16 @@
 <!-- Main content -->
 <section class="content container-fluid">
     <div class="row" style="margin-bottom: 5px;">
-        <div class="col-xs-12">
-            <a href="#" class="btn btn-success" id="newUbicacion"><b><i class="fa fa-fw fa-plus"></i> Nuevo</b></a>
-        </div>
-        <div class="form-group col-xs-4 pull-right">
-        <div class="form-group">
-            <div style="padding-right: 10px;">
-                <select id="ubicacion" class="form-control select2" name="state"></select>
+            <div class="col-xs-8">
+                <a href="#" class="btn btn-success" id="newUbicacion"><b><i class="fa fa-fw fa-plus"></i> Nuevo</b></a>
             </div>
+            <div class="form-group col-xs-4 pull-right">
+                <div class="form-group">
+                    <div style="padding-right: 10px;">
+                        <select id="ubicacion" class="form-control select2" name="state"></select>
+                    </div>
+                </div>
             </div>
-        </div>
         <div class="clearfix"></div>
     </div>
     <div class="row">
@@ -43,6 +43,7 @@
                                 <th>Piso</th>
                                 <th>Número</th>
                                 <th>Descripción</th>
+                                <th>Precio</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
@@ -69,32 +70,36 @@
                         @csrf
                         <div class="modal-body">
                             <div class="box-body">
-                                <div class="form-group col-md-6">
-                                    <label>Piso</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                        <input type="text" class="form-control" placeholder="Piso" name="floor_space" id="floor_space">
+                                <div>
+                                    <div class="form-group col-md-6">
+                                        <label>Piso</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input type="text" class="form-control" placeholder="Piso" name="floor_space" id="floor_space">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Número</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input type="text" class="form-control" placeholder="Numero" name="number_space" id="number_space">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Descripción</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                            <input type="email" class="form-control" placeholder="Descripcion" name="description_space" id="description_space">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label>Número</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                        <input type="text" class="form-control" placeholder="Numero" name="number_space" id="number_space">
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Descripción</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                        <input type="email" class="form-control" placeholder="Descripcion" name="description_space" id="description_space">
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label>Articulos</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-tasks"></i></span>
-                                        <select class="form-control select2" multiple="multiple" id="articulo" name="articulo[]" style="width:100%"></select>
+                                <div>
+                                    <div class="form-group col-md-12">
+                                        <label>Articulos</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-tasks"></i></span>
+                                            <select class="form-control select2" multiple="multiple" id="articulo" name="articulo[]" style="width:100%"></select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +125,7 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title-space"></h4>
+                <h4 class="modal-title-space">Listado de artículos</h4>
               </div>
 
               <div class="modal-body">
@@ -131,6 +136,7 @@
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Número de Serie</th>
+                            <th>Precio</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
@@ -157,6 +163,13 @@
                         <div class="modal-body">
                             <div class="box-body">
                                 <div class="form-group col-md-6">
+                                    <label>Ubicación</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                        <select  class="form-control select2" placeholder="Ubicacion" name="id_ubicacion" id="id_ubicacion" style="width:100%;"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
                                     <label>Piso</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-building"></i></span>
@@ -177,12 +190,18 @@
                                         <input type="text" class="form-control" placeholder="Descripción" name="description_space" id="description_space">
                                     </div>
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label>precio</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-list-ol"></i></span>
+                                        <input type="number" class="form-control" placeholder="0.0" name="precio_space" id="precio_space">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="id" id="id">
-                        <input type="hidden" name="id_ubicacion" id="id_ubicacion">
                         <button type="button" class="btn btn-primary pull-left" id="btn-new-space">Añadir y Cerrar</button>
                         <button type="button" class="btn btn-primary pull-left" id="btn-update-space" style="display: none">Guardar y Cerrar</button>
                         <button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cerrar</button>
@@ -200,6 +219,22 @@
 <script>
 
 $('#ubicacion').select2({
+    minimumResultsForSearch: Infinity,
+    placeholder: " - Busca y selecciona una ubicación - ",
+    ajax: {
+        url: '/ubicacion/getubicacionesuser/',
+        processResults: function (data) {
+          return {
+            results: $.map(data, function(obj) {
+                return { id: obj.id, text: obj.name };
+            })
+          };
+
+        }
+    }
+});
+
+$('#id_ubicacion').select2({
     minimumResultsForSearch: Infinity,
     placeholder: " - Busca y selecciona una ubicación - ",
     ajax: {
@@ -237,6 +272,7 @@ $('#ubicacion').on('select2:select',function(e){
         {data:'floor'},
         {data:'number'},
         {data:'description' },
+        {data:'precio'},
         {data:'action', orderable:false, searchable: false},
       ],
       dom: 'Bfrtip',
@@ -266,6 +302,7 @@ $(document).ready(function() {
                 {data:'floor'},
                 {data:'number'},
                 {data:'description' },
+                {data:'precio'},
                 {data:'action', orderable:false, searchable: false},
             ],
 
@@ -381,6 +418,7 @@ $(document).ready(function() {
             {data:'name'},
             {data:'description'},
             {data:'numero_serie'},
+            {data:'precio'},
             {data:'action', orderable:false, searchable: false},
         ],
         dom: 'Bfrtip',
