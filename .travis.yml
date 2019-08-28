@@ -11,7 +11,7 @@ before_script:
   - php artisan migrate
 
 before_install:
-  - mysql -e 'CREATE DATABASE tfgjgg_test;'
+  - mysql -e 'CREATE DATABASE tfgjgg_test2;'
   - echo "memory_limit=512M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - mysql -u root tfgjgg_test < inicioBBDD.sql
 script:
