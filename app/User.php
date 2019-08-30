@@ -31,13 +31,16 @@ class User extends Authenticatable
     public function Ubicacion(){
         return $this->belongsToMany('App\Ubicacion');
     }
+    public function Tarifa(){
+        return $this->belongsTo('App\Tarifa');
+    }
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'user', 'email', 'password', 'rfid_tag', 'pin', 'externo',
+        'name', 'user', 'email', 'password', 'rfid_tag', 'pin', 'externo','id_tarifa'
     ];
 
     /**

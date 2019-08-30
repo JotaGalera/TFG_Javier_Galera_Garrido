@@ -13,11 +13,10 @@ Route::get('/', 'HomeController@index');
 
 
 Route::get('/dev', function(){
-	$espacio_id=3;
-	$datatable = \App\Coordenadas::where('espacio_id','=',$espacio_id)->get();
-
-        return json_encode(Datatables::of($datatable)
-        ->make(true));
+	$obj = \App\User::where([
+		['id_tarifa',null]
+	])->get();
+	return $obj;
 });
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -29,13 +28,21 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('ubicacion', 'UbicacionController@index')->name('ubicacion');
 	Route::get('articulo','ArticuloController@index')->name('articulo');
 	Route::get('listado','EspacioController@index')->name('listado');
-
+	Route::get('tarifa','TarifaController@index')->name('tarifa');
 
 	//ROUTES user
+	Route::get('user/getdatatabletarifauser/{id_tarifa}','UserController@getDataTableUserTarifa')->name('user.getdatatableusertarifa')
+		->middleware('permission:user.index');
+	Route::put('user/desasignatarifa/{id}','UserController@desasignaTarifa')->name('user.desasignatarifa')
+		->middleware('permission:user.index');
+	Route::get('user/sintarifa','UserController@getSinTarifa')->name('user.getsintarifa')
+		->middleware('permission:user.index');
 	Route::get('user/all', 'UserController@all')->name('user.all')
 		->middleware('permission:user.index');
 	Route::get('user/find', 'UserController@findSelect2')->name('user.findSelect2')
 		->middleware('permission:sistema.index');
+	Route::put('user/asignatarifa', 'UserController@asignaTarifa')->name('user.asignatarifa')
+		->middleware('permission:user.index');
 	Route::get('user/getdatatable', 'UserController@getDataTable')->name('user.getdatatable')
 		->middleware('permission:user.index');
 	Route::resource('user','UserController')
@@ -85,6 +92,12 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('coordenadas','CoordenadasController')
 		->middleware('permission:coordenadas.index');
 
+	//ROUTE tarifa
+	Route::get('tarifa/getdatatable','TarifaController@getDatatable')->name('tarifa.getdatatable')
+		->middleware('permission:tarifa.index');
+	Route::resource('tarifa','TarifaController')
+		->middleware('permission:tarifa.index');
+	
 	//ROUTE json
 	Route::get('data.json',function(){
 		$jsonString = file_get_contents(base_path('/resources/views/data.json'));

@@ -301,7 +301,7 @@ $("#btn-update").click(function(){
 
 $(document).on('click', '.delete', function(){
   id = $(this).attr("id");
-  alertify.confirm('¿Desea eliminar a esta ubicació?', 'Esta acción no puede deshacerse',
+  alertify.confirm('¿Desea eliminar a esta ubicación?', 'Esta acción no puede deshacerse',
       function(){
           $.ajax({
               url : 'ubicacion/'+id,

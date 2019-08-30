@@ -167,8 +167,8 @@ $select2MultiPermisos = $('#role').select2({
     placeholder: "Selecciona uno o varios permisos",
     allowClear: true
 });
-$select2MultiPermisos = $('#ubicacion_name').select2({
-    placeholder: "Selecciona uno o varios permisos",
+$select2MultiUbicaciones = $('#ubicacion_name').select2({
+    placeholder: "Selecciona uno o varias ubicaciones",
     allowClear: true
 });
 

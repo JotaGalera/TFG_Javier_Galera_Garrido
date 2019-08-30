@@ -61,7 +61,7 @@ class ArticuloController extends Controller
     $obj->ubicacion_id  = $validateData['ubicacion_mod'];
     $obj->numero_serie  = $validateData['numero_serie'];
     $obj->description   = $validateData['description'];
-    $obj->precio        = $validateData['precio_space'];
+    $obj->precio        = $validateData['precio'];
     $obj->update();
 
     return response()->json(['success'=>'Articulo modificado correctamente.']);

@@ -86,6 +86,5 @@ class UbicacionController extends Controller
     	->addColumn('action', function($obj){
     			return '<a href="#" data-toggle="tooltip" title="Información de los espacios" class="btn btn-xs btn-success space" id="'.$obj->id.'"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a> <a href="#" data-toggle="tooltip" title="Editar ubicación" class="btn btn-xs btn-primary edit" id="'.$obj->id.'"><i class="fa fa-pencil" aria-hidden="true"></i></a> <a href="#" data-toggle="tooltip" title="Eliminar ubicación" class="btn btn-xs btn-danger delete" id="'.$obj->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
     	})->rawColumns(['action'])->make(true);
-
     }
 }

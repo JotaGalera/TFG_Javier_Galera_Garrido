@@ -288,7 +288,7 @@ $(document).ready(function() {
         data: $("#formArticulo").serialize(),
         success:function(data)
         {
-            alertify.success('Ubicación modificada con éxito');
+            alertify.success(data.success);
             $('#tableArticulo').DataTable().ajax.reload(null, false);
             $('#modalArticulo').modal('hide');
         },
@@ -310,7 +310,7 @@ $(document).ready(function() {
                 success:function(data)
                 {
                     $('#tableArticulo').DataTable().ajax.reload(null, false);
-                    alertify.success('Ubicación eliminada correctamente');
+                    alertify.success('Articulo eliminado correctamente');
                 }
             })
         },

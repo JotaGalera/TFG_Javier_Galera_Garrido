@@ -76,7 +76,7 @@ class EspacioController extends Controller
 
       return Datatables::of(\App\Espacio::where('ubicacion_id', $ubicacion_id))
         ->addColumn('action', function($obj){
-            return '<a href="#" class="btn btn-xs btn-primary edit-space" id="'.$obj->id.'"><i class="fa fa-pencil" aria-hidden="true"></i></a> <a href="#" class="btn btn-xs btn-danger delete-espacio" id="'.$obj->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a> <a href="#" class="btn btn-xs btn-primary referencias" id="'.$obj->id.'"><i class="fa fa-list-ol" aria-hidden="true"></i></a>';
+            return '<a href="#" class="btn btn-xs btn-primary edit-space" id="'.$obj->id.'"><i class="fa fa-pencil" aria-hidden="true"></i></a> <a href="#" class="btn btn-xs btn-danger delete-espacio" id="'.$obj->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a> ';
         })->rawColumns(['action'])->make(true);
 
     }

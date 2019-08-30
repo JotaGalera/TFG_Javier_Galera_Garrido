@@ -248,7 +248,10 @@
                         <li <?php if(Route::currentRouteName() == "articulo.index"){ ?>class="active" <?php } ?>><a href="/articulo"><i class="fa fa-archive"></i> <span>Articulo</span></a></li>
                         @endcan
                         @can('articulo.index')
-                        <li <?php if(Route::currentRouteName() == "listado.index"){ ?>class="active" <?php } ?>><a href="/listado"><i class="fa fa-list-alt"></i> <span>Espacios Y Articulos</span></a></li>
+                        <li <?php if(Route::currentRouteName() == "listado"){ ?>class="active" <?php } ?>><a href="/listado"><i class="fa fa-list-alt"></i> <span>Espacios Y Articulos</span></a></li>
+                        @endcan
+                        @can('articulo.index')
+                        <li <?php if(Route::currentRouteName() == "tarifa"){ ?>class="active" <?php } ?>><a href="/tarifa"><i class="fa fa-usd"></i> <span>Gestion de tarifas</span></a></li>
                         @endcan
                     </ul>
                     @endcanatleast

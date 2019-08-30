@@ -15,14 +15,19 @@ class UserController extends Controller
     }
     public function findSelect2( Request $request )
     {
-
         $obj = \App\User::where([
             ['name', 'like', '%' . trim($request->q) . '%']
         ])->get();
 
         return $obj;
-
     }
+    public function getSinTarifa(){
+        $obj = \App\User::where([
+            ['id_tarifa',null]
+        ])->get();
+        return $obj;
+    }
+
     public function store(Request $request)
     {
         if($request['externo'] == 'on' || !isset($request['externo'])) $request['externo'] = isset($request['externo']) ? 1 : 0;
@@ -91,5 +96,39 @@ class UserController extends Controller
             }
             return $cadena;
         })->rawColumns(['action', 'roles'])->make(true);
+    }
+
+    public function asignaTarifa(Request $request){
+        
+        foreach($request['user_name'] as $user){
+            $validateData = $request->validate([
+                'user_tarifa_id'        => 'required|max:255',
+                'user_name'          => 'required|max:255',
+            ]);
+
+            $obj                    = \App\User::find($user);
+            $obj->id_tarifa         = $request->get('user_tarifa_id');
+            $obj->update();
+        }
+        
+        return response()->json(['success'=>'Tarifa asignada correctamente.']);
+    }
+
+    public function desasignaTarifa(Request $request,$id){
+            $obj                    = \App\User::find($id);
+            $obj->id_tarifa         = null;
+            $obj->update();
+        
+            return response()->json(['success'=>'Tarifa asignada correctamente.']);
+    }
+
+    public function getDataTableUserTarifa($id_tarifa)
+    {
+        $datatable = \App\User::where('id_tarifa','=',$id_tarifa);
+
+        return Datatables::of($datatable)
+        ->addColumn('action',function($obj){
+            return '<a href="#" title="Eliminar agregación usuario-tarifa" class="btn btn-xs btn-danger delete-user-tarifa" id="'.$obj->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+        })->rawColumns(['action'])->make(true);
     }
 }
