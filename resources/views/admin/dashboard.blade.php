@@ -18,11 +18,11 @@
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <span class="info-box-icon bg-aqua"><i class="ion-ios-albums-outline"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">AVERIAS PENDIENTES</span>
-                    <span class="info-box-number">15</span>
+                    <span class="info-box-text">ALQUILERES TOTALES</span>
+                    <span class="info-box-number" id="alquilerTotal"></span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -31,11 +31,11 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-calendar"></i></span>
+                <span class="info-box-icon bg-red"><i class="fa fa-usd"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">ESPACIOS RESERVADOS</span>
-                    <span class="info-box-number">35</span>
+                    <span class="info-box-text">ALQUILERES PAGADOS</span>
+                    <span class="info-box-number" id="alquilerPagado"></span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -48,11 +48,11 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="ion ion-folder"></i></span>
+                <span class="info-box-icon bg-green"><i class="fa fa-building-o"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">INVENTARIO</span>
-                    <span class="info-box-number">34</span>
+                    <span class="info-box-text">ESPACIOS EN EL SISTEMA</span>
+                    <span class="info-box-number" id="numEspacio"></span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -61,11 +61,11 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="ion ion-document"></i></span>
+                <span class="info-box-icon bg-yellow"><i class="fa fa-archive"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">UBICACIONES</span>
-                    <span class="info-box-number">50</span>
+                    <span class="info-box-text">ARTICULOS EN EL SISTEMA</span>
+                    <span class="info-box-number" id="numArticulo"></span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -78,12 +78,12 @@
     <!-- Main row -->
     <div class="row">
         <!-- Left col -->
-        <div class="col-md-8">
+        <div class="col-md-12">
 
             <!-- TABLE: LATEST ORDERS -->
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Últimas averias</h3>
+                    <h3 class="box-title">Alquileres activos</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
@@ -94,163 +94,27 @@
                 <div class="box-body">
                     <div class="table-responsive">
 
-                    <table id="example2" class="table no-margin">
+                    <table id="tablaAlquileresActivos" class="table no-margin">
                         <thead>
                             <tr>
-                                <th>Código</th>
-                                <th>Descripción</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                <th>Sistema</th>
-                                <th>Ubicación</th>
-                                <th>Estado</th>
+                                <th>ID</th>
+                                <th>Fecha de alquiler</th>
+                                <th>Usuario</th>
+                                <th>Espacio</th>
+                                <th>Pagado</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>ATIS_AVE_001</td>
-                                <td>Avería en barrera, sistema bloqueado</td>
-                                <td>08/11/2018</td>
-                                <td>10:00:50</td>
-                                <td>Barrera de Vehículos</td>
-                                <td>Fuente Peña</td>
-                                <td><span class="label label-warning">Tramitada</span></td>
-                            </tr>
-                            <tr>
-                                <td>ATIS_AVE_002</td>
-                                <td>Avería en barrera, perdida de señal en centro de control</td>
-                                <td>08/11/2018</td>
-                                <td>15:00:15</td>
-                                <td>Camara de Seguridad</td>
-                                <td>Fuente Peña</td>
-                                <td><span class="label label-danger">Pendiente</span></td>
-                            </tr>
-                            <tr>
-                                <td>ATIS_AVE_003</td>
-                                <td>Avería en sensores, la central nos indica que hay un fallo en los sensores</td>
-                                <td>05/11/2018</td>
-                                <td>13:14:50</td>
-                                <td>Protección contra incendios</td>
-                                <td>Puerta del libro</td>
-                                <td><span class="label label-warning">Tramitada</span></td>
-                            </tr>
-                            <tr>
-                                <td>ATIS_AVE_004</td>
-                                <td>Avería en sensores, la central nos indica que hay un fallo en los sensores</td>
-                                <td>15/11/2018</td>
-                                <td>12:26:50</td>
-                                <td>Protección contra incendios</td>
-                                <td>Puerta del libro</td>
-                                <td><span class="label label-warning">Tramitada</span></td>
-                            </tr>
-                            <tr>
-                                <td>ATIS_AVE_005</td>
-                                <td>Avería en la barrera, la barrera se ha quedado abierta.</td>
-                                <td>16/11/2018</td>
-                                <td>16:15:50</td>
-                                <td>Barrera de Vehículos</td>
-                                <td>Puerta del libro</td>
-                                <td><span class="label label-success">Cerrada</span></td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Código</th>
-                                <th>Descripción</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                <th>Sistema</th>
-                                <th>Ubicación</th>
-                                <th>Estado</th>
-                            </tr>
-                        </tfoot>
                     </table>
                     </div>
                     <!-- /.table-responsive -->
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer clearfix">
-                    <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Nueva Avería</a>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Ver todas</a>
-                </div>
-                <!-- /.box-footer -->
+                
             </div>
             <!-- /.box -->
         </div>
         <!-- /.col -->
 
-        <div class="col-md-4">
-            <!-- Info Boxes Style 2 -->
-            <div class="info-box bg-yellow">
-                <span class="info-box-icon"><i class="ion ion-person"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">TÉCNICOS</span>
-                    <span class="info-box-number">30</span>
-
-                    <div class="progress">
-                        <div class="progress-bar" style="width:30%"></div>
-                    </div>
-                    <span class="progress-description">
-                        Incremento del 30% en el último mes
-                    </span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-            <div class="info-box bg-red">
-                <span class="info-box-icon"><i class="fa fa-warning"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">AVERIAS</span>
-                    <span class="info-box-number">150</span>
-
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 80%"></div>
-                    </div>
-                    <span class="progress-description">
-                        Incremento del 80%  en el último mes
-                    </span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-            <div class="info-box bg-green">
-                <span class="info-box-icon"><i class="fa fa-archive"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">ELEMENTOS EN INVENTARIO</span>
-                    <span class="info-box-number">1.150</span>
-
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 5%"></div>
-                    </div>
-                    <span class="progress-description">
-                        Incremento del 5% en el último mes
-                    </span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-            <div class="info-box bg-aqua">
-                <span class="info-box-icon"><i class="ion-ios-chatbubble-outline"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">SISTEMAS DE SEGURIDAD</span>
-                    <span class="info-box-number">150</span>
-
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 10%"></div>
-                    </div>
-                    <span class="progress-description">
-                        Incremento del 10% en el último mes
-                    </span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-
-        </div>
+        
         <!-- /.col -->
     </div>
     <!-- /.row -->
@@ -260,5 +124,86 @@
 @stop
 
 @push('scripts')
-<script src="/admin-lte/js/pages/dashboard2.js"></script>
+<script>
+    
+    $( document ).ready(function() {
+        $(function () {
+            $('#tablaAlquileresActivos').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "processing" : true,
+                "serverSide": true,
+                "scrollX": true,
+                "ajax": "alquiler/getdatatablepagados",
+                "columns":[
+                    {data:'id'},
+                    {data:'fecha_alquiler'},
+                    {data:'name_user'},
+                    {data:'name_space'},
+                    {data:'pagado'},
+                ],
+
+                dom: 'Bfrtip',
+                buttons: [
+                    'csv', 'excel', 'pdf'
+                ]
+            });
+
+            
+        });
+
+        $(function(){
+            $.ajax({
+                url : 'alquiler/numalquilertotal',
+                type : 'get',
+                dataType: 'json',
+                success:function(data)
+                {
+                    $('#alquilerTotal').text(data);
+                }
+            })
+        });
+
+        $(function(){
+            $.ajax({
+                url : 'alquiler/numalquilerpagado',
+                type : 'get',
+                dataType: 'json',
+                success:function(data)
+                {
+                    $('#alquilerPagado').text(data);
+                }
+            })
+        });
+
+        $(function(){
+            $.ajax({
+                url : 'espacio/numespacio',
+                type : 'get',
+                dataType: 'json',
+                success:function(data)
+                {
+                    $('#numEspacio').text(data);
+                }
+            })
+        });
+
+        $(function(){
+            $.ajax({
+                url : 'articulo/numarticulo',
+                type : 'get',
+                dataType: 'json',
+                success:function(data)
+                {
+                    $('#numArticulo').text(data);
+                }
+            })
+        });
+        
+    });
+</script>
 @endpush
