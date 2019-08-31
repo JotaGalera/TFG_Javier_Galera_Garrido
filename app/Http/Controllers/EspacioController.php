@@ -71,6 +71,11 @@ class EspacioController extends Controller
         return $obj;
     }
 
+    public function numEspacio(){
+        $obj = \App\Espacio::all()->count();
+        return $obj;
+    }
+
     public function getDataTable($ubicacion_id)
     {
 

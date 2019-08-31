@@ -92,6 +92,11 @@ class ArticuloController extends Controller
     return $obj;
   }
 
+  public function numArticulo(){
+    $obj = \App\Articulo::all()->count();
+    return $obj;
+  }
+
   public function getArticuloEspacio($id_espacio)
   {
     $articulos = \App\Articulo::join('ubicacion','ubicacion.id','=','articulo.ubicacion_id')
