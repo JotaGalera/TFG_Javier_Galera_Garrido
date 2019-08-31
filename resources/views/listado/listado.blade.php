@@ -447,7 +447,7 @@ $(document).ready(function() {
             error:function(data)
             {
                 console.log(data);
-                alertify.success('ERROR: No se ha podido desasignar el articulo del espacio correctamente');
+                alertify.error('ERROR: No se ha podido desasignar el articulo del espacio correctamente');
             }
         })
     });  

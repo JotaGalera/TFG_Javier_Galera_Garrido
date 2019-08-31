@@ -239,7 +239,7 @@
                         <li <?php if(Route::currentRouteName() == "user.index"){ ?>class="active" <?php } ?>><a href="/user"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
                         @endcan
                         @can('gis.index')
-                        <li <?php if(Route::currentRouteName() == "gis.index"){ ?>class="active" <?php } ?>><a href="/gis"><i class="fa fa-map"></i> <span>GIS</span></a></li>
+                        <li <?php if(Route::currentRouteName() == "gis"){ ?>class="active" <?php } ?>><a href="/gis"><i class="fa fa-map"></i> <span>GIS</span></a></li>
                         @endcan
                         @can('ubicacion.index')
                         <li <?php if(Route::currentRouteName() == "ubicacion.index"){ ?>class="active" <?php } ?>><a href="/ubicacion"><i class="fa fa-map-marker"></i> <span>Ubicacion</span></a></li>
@@ -251,7 +251,10 @@
                         <li <?php if(Route::currentRouteName() == "listado"){ ?>class="active" <?php } ?>><a href="/listado"><i class="fa fa-list-alt"></i> <span>Espacios Y Articulos</span></a></li>
                         @endcan
                         @can('articulo.index')
-                        <li <?php if(Route::currentRouteName() == "tarifa"){ ?>class="active" <?php } ?>><a href="/tarifa"><i class="fa fa-usd"></i> <span>Gestion de tarifas</span></a></li>
+                        <li <?php if(Route::currentRouteName() == "tarifa.index"){ ?>class="active" <?php } ?>><a href="/tarifa"><i class="fa fa-usd"></i> <span>Gestion de tarifas</span></a></li>
+                        @endcan
+                        @can('articulo.index')
+                        <li <?php if(Route::currentRouteName() == "alquiler.index"){ ?>class="active" <?php } ?>><a href="/alquiler"><i class="fa fa-building"></i> <span>Gestion de alquileres</span></a></li>
                         @endcan
                     </ul>
                     @endcanatleast
