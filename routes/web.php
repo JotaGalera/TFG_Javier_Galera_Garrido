@@ -13,10 +13,18 @@ Route::get('/', 'HomeController@index');
 
 
 Route::get('/dev', function(){
-	$obj = \App\User::where([
-		['id_tarifa',null]
-	])->get();
-	return $obj;
+	return Datatables::of(\App\Alquiler::all())
+        ->addColumn('name_user', function($obj){
+            $nombre_user = \App\User::where('id','like',$obj['user_id'])->get();
+            return $nombre_user[0]['name'];  
+        })
+        ->addColumn('name_space', function($obj){
+            $nombre_space = \App\Espacio::where('id','like',$obj['espacio_id'])->get();
+            return $nombre_space[0]['description'].', piso:'.$nombre_space[0]['floor'].', number:'.$nombre_space[0]['number'];
+        })
+        ->addColumn('action', function($obj){
+        return '<a href="#" data-toggle="tooltip" title="Eliminar articulo de este espacio" class="btn btn-xs btn-danger delete-articulo" id="'.$obj->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+        })->rawColumns(['action'])->make(true);
 });
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -98,6 +106,12 @@ Route::middleware(['auth'])->group(function(){
 	Route::resource('tarifa','TarifaController')
 		->middleware('permission:tarifa.index');
 	
+	//ROUTE alquiler
+	Route::get('alquiler/getdatatable','AlquilerController@getDatatable')->name('alquiler.getdatatable')
+		->middleware('permission:alquiler.index');
+	Route::resource('alquiler','AlquilerController')
+		->middleware('permission:alquiler.index');
+
 	//ROUTE json
 	Route::get('data.json',function(){
 		$jsonString = file_get_contents(base_path('/resources/views/data.json'));
