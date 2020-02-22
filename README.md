@@ -13,61 +13,49 @@ administradores.
 
 ## ¿En qué consiste?
 
-El proyecto será abordado como el núcleo de un producto futuro. El sistema que se propone permitirá la gestión de los diferentes ___Espacios___ que pertenecen a una ___Ubicación___. Con la posibilidad de poder reunir dichas ubicaciones como ___Campus___. La idea principal consta de una relación entre un ___Inventario___, el cual podrá ser creado, modificado o eliminado por los administradores de cada ___Ubicación___ o incluso ___Campus___, y una ___Ubicación___.
-Para la gestión del inventario habrá dos formas de ubicarlo: 
-    1. Asignarlo a un ___Espacio___ dentro de la ___Ubicación___. Debido a que es posible que dicho inventario no se quiera o pueda mover de un ___Espacio___ en concreto, como puede ser un aire acondicionado o una pantalla de televisión sujeta a una pared.
-    2. Asignarlo a una ___Ubicación___. De esta forma podremos ir moviendolo según el ___Espacio___ que lo requiera.
+El proyecto será abordado como el núcleo de un producto futuro. El sistema que se propone permitirá la gestión de los diferentes ___Espacios___ que pertenecen a una ___Ubicación___. La idea principal consta de una relación entre un ___Inventario___, el cual podrá ser creado, modificado o eliminado por los administradores de cada ___Ubicación___.
 
-Los clientes que utilicen el sistema podrán elegir los ___Espacios___ de la ___Ubicación___ que quiera "alquilar". Una vez seleccionado el ___Espacio___ se les permitirá gestionar el ___Inventario___ que necesiten para su propósito y del que disponga dicho ___Espacio___ y/o ___Ubicación___. Al acabar la operación se les generará una factura automáticamente la cual deberá ser abonada de la forma que prefiera el ___Centro___.
+Para la gestión del inventario habrá dos formas de ubicarlo:
+    1. Asignarlo a una ___Ubicación___. De esta forma podremos ir moviendolo según el ___Espacio___ que lo requiera.
+    2. Asignarlo a un ___Espacio___ dentro de la ___Ubicación___. Debido a que es posible que dicho inventario no se quiera o pueda mover de un ___Espacio___ a otro, como puede ser un aire acondicionado o una pantalla de televisión sujeta a una pared.
+    
+Los clientes que utilicen el sistema podrán elegir el ___Espacio___ de la ___Ubicación___ que quieran "alquilar". Una vez seleccionado el ___Espacio___ se les permitirá gestionar el ___Inventario___ que necesiten para su propósito y del que disponga dicho ___Espacio___ y/o ___Ubicación___. Al acabar la operación se les generará una factura automáticamente la cual deberá ser abonada de la forma que prefiera el ___Centro___(Ubicación).
 
 
 El sistema cuenta con 2 interfaces:
 
-- Para los clientes: permitirá ver los distintos ___Espacios___ e ___Inventario___ de los que se disponen, así como la gestión del alquiler de este.  
-- Para la gestion del sistema: en la que se podrán configurar los ___Espacios___ ,___Ubicaciones___ , ___Inventarios___ , ___Usuarios del sistema___, etc.
+- Para los clientes: permitirá ver los distintos ___Espacios___ e ___Inventario___ de los que se disponen, así como la acción de alquiler de este.  
+- Para los administradores: en la que se podrán configurar los ___Espacios___ ,___Ubicaciones___ , ___Inventarios___ , ___Usuarios del sistema___, ___factuacion___, ___alquileres___, etc.
 
-La comunicación de la Interfaz del cliente y el resto del sistema será mediante una API REST, la cual le ofrecerá los distintos servicios que se requieran para posibilitar sus funcionalidades principales y secundarias.
+La comunicación de la Interfaz del cliente y el resto del sistema será mediante una API, la cual ofrecerá los distintos servicios que se requieran para posibilitar sus funcionalidades principales y secundarias.
 
 ## Aspectos técnicos:
 
 Las diferentes tecnologías que se utilizarán en este proyecto serán:
 
 - Laravel, un Framework de PHP, ágil de utilizar y cómodo para mantener el Modelo Vista Controlador a la hora de desarrollar el sistema.
-- Eloquent, el ORM que se proporciona junto con Laravel, ofrece una forma sencilla y directa de trabajar con la Base de Datos.
+- Eloquent, el ORM que se proporciona junto con Laravel, ofrece una forma sencilla y directa de trabajar con las Entidades de la Base de Datos.
 - La base de datos a utilizar será MySQL, utilizaremos una base de datos relacional, la base de datos será el pilar de nuestra aplicación,y el modelo relacional nos aportará atomicidad, consistencia, aislamiento y durabilidad.
 
 ## Tipos de usuarios:
 
 Para abordar el proyecto se definirán unos roles, a los cuales se les adjudicarán ciertas funcionalidades. Hablamos de un sistema complejo y basaremos varios roles en el tema de la administración de este. Los principales papeles de los usuarios serán:
 
-    - Unidad de Mantenimiento.
-    - Administrador del sistema.
-    - Administrador.
-    - Empresa.
-
-#### Unidad de mantenimiento.
-
-Este rol , va enfocado a la empresa productora de la aplicación, tiene acceso interno a esta, y podrá trabajar sobre futuras actualizaciones sobre el sistema, pudiendo así modificar a este añadiendole nuevos modulos.
-
-(DESCRIPCIÓN FUNCIONES OFRECIDAS)
-
-#### Administrador del sistema.
-
-Roles destinados a las Gestiones del sistema a un nivel global.
-
-(DESCRIPCION FUNCIONES OFRECIDAS)
+    - Administradores
+    - Clientes
 
 #### Administrador.
 
 Destinado a la modularización de los servicios ofrecidos, está pensado para facilitar la asignación de distintas tareas sobre el sistema.
 
-(DESCRIPCION FUNCIONES OFRECIDAS)
+Serán los encargados del sistema, pudiendo crear espacios, ubicaciones, usuarios, actualizar o crear el mapa de habitaciones y gestionar las tarifas aplicadas a los distintos clientes .
 
 #### Empresa/Cliente.
 
 Cuentas de usuarios del sistema, que se benefician de los servicios que este ofrece.
 
-(DESCRIPCION FUNCIONES OFRECIDAS)
+Existirán distintos tipos de clientes con distintas tarifas aplicables sobre ellos. Por ejemplo: un profesor de la UGR, necesita un aula para dar una charla sobre TDD a sus alumnos, dicho profesor podrá alquilar un aula del centro de forma gratuita y beneficiarse de los diferentes artículos que la sala presente. Mientras que por otro lado, una empresa externa quiere realizar una reunión en una sala, ya que no cuentan con espacio suficiente para poder realizarla en su empresa, a dicha empresa se le puede aplicar un cargo por el alquiler del espacio y los articulos que necesiten para realizar la reunión.
+
 
 ##### Autor: Javier Galera Garrido
 ##### Tutorizado: J.J. Merelo
