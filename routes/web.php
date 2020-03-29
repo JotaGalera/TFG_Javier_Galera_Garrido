@@ -26,7 +26,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::get('articulo','ArticuloController@index')->name('articulo');
 	Route::get('listado','EspacioController@index')->name('listado');
 	Route::get('tarifa','TarifaController@index')->name('tarifa');
-
+	Route::post('/login', 'AuthController@login')->name('login');
 	//ROUTES user
 	Route::get('user/getdatatabletarifauser/{id_tarifa}','UserController@getDataTableUserTarifa')->name('user.getdatatableusertarifa')
 		->middleware('permission:user.index');

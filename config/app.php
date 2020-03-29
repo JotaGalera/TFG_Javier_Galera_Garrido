@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Alhambra - ATIS'),
+    'name' => env('APP_NAME', 'Gestión de espacios - ATIS'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://grv.fchica.com'),
+    'url' => env('APP_URL', 'http://tfggit.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -236,6 +236,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Converter' => Anam\PhantomMagick\Facades\Converter::class,
+        'SoftDeletes' => Illuminate\Database\Eloquent\SoftDeletes::class,
     ],
 
 ];
+
