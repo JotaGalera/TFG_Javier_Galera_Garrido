@@ -1,0 +1,150 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "properties": {
+          "tags": {
+            "height": "3.9",
+            "name": "ETSIIT",
+            "postname": "Clase 0.1",
+            "inventario": [
+              {
+                "id": 1,
+                "ubicacion_id": 1,
+                "numero_serie": 123456789,
+                "name": "Monitor",
+                "description": "Monitor LG",
+                "created_at": "2019-06-08 18:02:10",
+                "updated_at": "2019-06-09 23:44:30",
+                "deleted_at": null,
+                "espacio_id": 3
+              },
+              {
+                "id": 2,
+                "ubicacion_id": 1,
+                "numero_serie": 987654321,
+                "name": "Proyector",
+                "description": "Proyector ASUS (techo)",
+                "created_at": "2019-06-08 18:23:58",
+                "updated_at": "2019-06-18 19:51:41",
+                "deleted_at": null,
+                "espacio_id": 3
+              }
+            ]
+          },
+          "relations": [
+            {
+              "role": "buildingpart",
+              "reltags": {
+                "height": "4.0",
+                "type": "level",
+                "level": 0
+              }
+            }
+          ]
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              -3.62433085,
+              37.19820504
+            ],
+            [
+              -3.6244493,
+              37.1980896
+            ],
+            [
+              -3.62415827,
+              37.19806835
+            ]
+          ]
+        }
+      },
+      {
+        "properties": {
+          "tags": {
+            "height": "3.9",
+            "name": "ETSIIT",
+            "postname": "Clase 0.2",
+            "inventario": [
+              
+            ]
+          },
+          "relations": [
+            {
+              "role": "buildingpart",
+              "reltags": {
+                "height": "4.0",
+                "type": "level",
+                "level": 0
+              }
+            }
+          ]
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            
+          ]
+        }
+      },
+      {
+        "properties": {
+          "tags": {
+            "height": "3.9",
+            "name": "ETSIIT",
+            "postname": "Clase 0.3",
+            "inventario": [
+              
+            ]
+          },
+          "relations": [
+            {
+              "role": "buildingpart",
+              "reltags": {
+                "height": "4.0",
+                "type": "level",
+                "level": 0
+              }
+            }
+          ]
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            
+          ]
+        }
+      },
+      {
+        "properties": {
+          "tags": {
+            "height": "3.9",
+            "name": "ETSIIT",
+            "postname": "Clase 0.4",
+            "inventario": [
+              
+            ]
+          },
+          "relations": [
+            {
+              "role": "buildingpart",
+              "reltags": {
+                "height": "4.0",
+                "type": "level",
+                "level": 0
+              }
+            }
+          ]
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            
+          ]
+        }
+      }
+      
+    ]
+  }
