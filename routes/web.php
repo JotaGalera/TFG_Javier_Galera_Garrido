@@ -9,12 +9,12 @@ use \App\Articulo;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
-
-
-Route::get('/dev', function(){
-	
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    $objUser = \App\User::with('roles')->find($request->user()->id);
+    return $objUser;
 });
+
+Route::get('/', 'HomeController@index');
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 

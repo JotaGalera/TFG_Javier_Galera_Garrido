@@ -13,6 +13,13 @@ class UserController extends Controller
         $ubicacion = \App\Ubicacion::all();
         return view('user.index', compact('roles','ubicacion'));
     }
+
+    public function all(){
+        $roles = \App\Role::all();
+        $ubicacion = \App\Ubicacion::all();
+        return view('user.index', compact('roles','ubicacion'));
+    }
+
     public function findSelect2( Request $request )
     {
         $obj = \App\User::where([
