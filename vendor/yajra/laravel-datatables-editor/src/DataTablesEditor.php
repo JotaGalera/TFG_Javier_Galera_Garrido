@@ -2,11 +2,16 @@
 
 namespace Yajra\DataTables;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class DataTablesEditor
@@ -14,16 +19,72 @@ abstract class DataTablesEditor
     use ValidatesRequests;
 
     /**
+     * Action performed by the editor.
+     *
+     * @var string|null
+     */
+    protected $action = null;
+
+    /**
      * Allowed dataTables editor actions.
      *
      * @var array
      */
-    protected $actions = ['create', 'edit', 'remove'];
+    protected $actions = [
+        'create',
+        'edit',
+        'remove',
+        'upload',
+        'forceDelete',
+        'restore',
+    ];
 
     /**
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model = null;
+
+    /**
+     * Indicates if all mass assignment is enabled on model.
+     *
+     * @var bool
+     */
+    protected $unguarded = false;
+
+    /**
+     * Upload directory relative to storage path.
+     *
+     * @var string
+     */
+    protected $uploadDir = 'editor';
+
+    /**
+     * Flag to force delete a model.
+     *
+     * @var bool
+     */
+    protected $forceDeleting = false;
+
+    /**
+     * Flag to restore a model from deleted state.
+     *
+     * @var bool
+     */
+    protected $restoring = false;
+
+    /**
+     * Filesystem disk config to use for upload.
+     *
+     * @var string
+     */
+    protected $disk = 'public';
+
+    /**
+     * Current request data that is being processed.
+     *
+     * @var array
+     */
+    protected $currentData = [];
 
     /**
      * Process dataTables editor action request.
@@ -40,7 +101,51 @@ abstract class DataTablesEditor
             throw new DataTablesEditorException('Requested action not supported!');
         }
 
-        return $this->{$action}($request);
+        try {
+            return $this->{$action}($request);
+        } catch (Exception $exception) {
+            $error = config('app.debug')
+                ? '<strong>Server Error:</strong> ' . $exception->getMessage()
+                : $this->getUseFriendlyErrorMessage();
+
+            app('log')->error($exception);
+
+            return $this->toJson([], [], $error);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUseFriendlyErrorMessage()
+    {
+        return 'An error occurs while processing your request.';
+    }
+
+    /**
+     * Display success data in dataTables editor format.
+     *
+     * @param array $data
+     * @param array $errors
+     * @param string $error
+     * @return JsonResponse
+     */
+    protected function toJson(array $data, array $errors = [], $error = '')
+    {
+        $response = [
+            'action' => $this->action,
+            'data'   => $data,
+        ];
+
+        if ($error) {
+            $response['error'] = $error;
+        }
+
+        if ($errors) {
+            $response['fieldErrors'] = $errors;
+        }
+
+        return new JsonResponse($response, 200);
     }
 
     /**
@@ -48,18 +153,28 @@ abstract class DataTablesEditor
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws \Exception
      */
     public function create(Request $request)
     {
-        $instance   = $this->resolveModel();
-        $connection = $instance->getConnection();
+        $this->action = $this->action ?? 'create';
+
+        $model      = $this->resolveModel();
+        $connection = $model->getConnection();
         $affected   = [];
         $errors     = [];
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $data) {
+            $this->currentData = $data;
+
+            $instance  = $model->newInstance();
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->createRules(), $this->createMessages(), $this->attributes());
+                              ->make(
+                                  $data,
+                                  $this->createRules(), $this->messages() + $this->createMessages(),
+                                  $this->attributes()
+                              );
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -67,8 +182,6 @@ abstract class DataTablesEditor
 
                 continue;
             }
-
-            $instance->fill($data);
 
             if (method_exists($this, 'creating')) {
                 $data = $this->creating($instance, $data);
@@ -78,7 +191,7 @@ abstract class DataTablesEditor
                 $data = $this->saving($instance, $data);
             }
 
-            $instance->save();
+            $instance->fill($data)->save();
 
             if (method_exists($this, 'created')) {
                 $instance = $this->created($instance, $data);
@@ -112,6 +225,8 @@ abstract class DataTablesEditor
             $this->model = new $this->model;
         }
 
+        $this->model->unguard($this->unguarded);
+
         return $this->model;
     }
 
@@ -123,9 +238,20 @@ abstract class DataTablesEditor
     abstract public function createRules();
 
     /**
+     * Get validation messages.
+     *
+     * @return array
+     */
+    protected function messages()
+    {
+        return [];
+    }
+
+    /**
      * Get create validation messages.
      *
      * @return array
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      */
     protected function createMessages()
     {
@@ -161,20 +287,18 @@ abstract class DataTablesEditor
     }
 
     /**
-     * Display success data in dataTables editor format.
+     * Process restore action request.
      *
-     * @param array $data
-     * @param array $errors
-     * @return JsonResponse
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    protected function toJson(array $data, array $errors = [])
+    public function restore(Request $request)
     {
-        $response = ['data' => $data];
-        if ($errors) {
-            $response['fieldErrors'] = $errors;
-        }
+        $this->action = 'restore';
 
-        return new JsonResponse($response, 200);
+        $this->restoring = true;
+
+        return $this->edit($request);
     }
 
     /**
@@ -185,16 +309,23 @@ abstract class DataTablesEditor
      */
     public function edit(Request $request)
     {
+        $this->action = $this->action ?? 'edit';
+
         $connection = $this->getBuilder()->getConnection();
         $affected   = [];
         $errors     = [];
 
-
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
+            $this->currentData = $data;
+
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->editRules($model), $this->editMessages(), $this->attributes());
+                              ->make(
+                                  $data,
+                                  $this->editRules($model), $this->messages() + $this->editMessages(),
+                                  $this->attributes()
+                              );
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error;
@@ -202,8 +333,6 @@ abstract class DataTablesEditor
 
                 continue;
             }
-
-            $model->fill($data);
 
             if (method_exists($this, 'updating')) {
                 $data = $this->updating($model, $data);
@@ -213,7 +342,7 @@ abstract class DataTablesEditor
                 $data = $this->saving($model, $data);
             }
 
-            $model->save();
+            $this->restoring ? $model->restore() : $model->fill($data)->save();
 
             if (method_exists($this, 'updated')) {
                 $model = $this->updated($model, $data);
@@ -245,7 +374,7 @@ abstract class DataTablesEditor
     {
         $model = $this->resolveModel();
 
-        if (in_array(\Illuminate\Database\Eloquent\SoftDeletes::class, class_uses($model))) {
+        if (in_array(SoftDeletes::class, class_uses($model))) {
             return $model->newQuery()->withTrashed();
         }
 
@@ -264,6 +393,7 @@ abstract class DataTablesEditor
      * Get edit validation messages.
      *
      * @return array
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      */
     protected function editMessages()
     {
@@ -271,22 +401,47 @@ abstract class DataTablesEditor
     }
 
     /**
+     * Process force delete action request.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function forceDelete(Request $request)
+    {
+        $this->action = 'forceDelete';
+
+        $this->forceDeleting = true;
+
+        return $this->remove($request);
+    }
+
+    /**
      * Process remove action request.
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws \Exception
      */
     public function remove(Request $request)
     {
+        $this->action = $this->action ?? 'remove';
+
         $connection = $this->getBuilder()->getConnection();
         $affected   = [];
         $errors     = [];
 
         $connection->beginTransaction();
         foreach ($request->get('data') as $key => $data) {
+            $this->currentData = $data;
+
             $model     = $this->getBuilder()->findOrFail($key);
             $validator = $this->getValidationFactory()
-                              ->make($data, $this->removeRules($model), $this->removeMessages(), $this->attributes());
+                              ->make(
+                                  $data,
+                                  $this->removeRules($model), $this->messages() + $this->removeMessages(),
+                                  $this->attributes()
+                              );
             if ($validator->fails()) {
                 foreach ($this->formatErrors($validator) as $error) {
                     $errors[] = $error['status'];
@@ -301,14 +456,14 @@ abstract class DataTablesEditor
                     $this->deleting($model, $data);
                 }
 
-                $model->delete();
+                $this->forceDeleting ? $model->forceDelete() : $model->delete();
 
                 if (method_exists($this, 'deleted')) {
                     $this->deleted($deleted, $data);
                 }
             } catch (QueryException $exception) {
                 $error = config('app.debug')
-                    ? $exception->errorInfo[2]
+                    ? $exception->getMessage()
                     : $this->removeExceptionMessage($exception, $model);
 
                 $errors[] = $error;
@@ -328,7 +483,7 @@ abstract class DataTablesEditor
             $response['error'] = implode("\n", $errors);
         }
 
-        return new JsonResponse($response, 200);
+        return $this->toJson($affected, [], $errors ?? '');
     }
 
     /**
@@ -343,6 +498,7 @@ abstract class DataTablesEditor
      * Get remove validation messages.
      *
      * @return array
+     * @deprecated deprecated since v1.12.0, please use messages() instead.
      */
     protected function removeMessages()
     {
@@ -385,18 +541,95 @@ abstract class DataTablesEditor
     }
 
     /**
-     * Display dataTables editor validation errors.
+     * Set model unguard state.
      *
-     * @param Validator $validator
-     * @return JsonResponse
+     * @param bool $state
+     * @return $this
      */
-    protected function displayValidationErrors(Validator $validator)
+    public function unguard($state = true)
     {
-        $errors = $this->formatErrors($validator);
+        $this->unguarded = $state;
 
-        return new JsonResponse([
-            'data'        => [],
-            'fieldErrors' => $errors,
-        ]);
+        return $this;
+    }
+
+    /**
+     * Handle uploading of file.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function upload(Request $request)
+    {
+        $this->action = 'upload';
+
+        $field   = $request->input('uploadField');
+        $storage = Storage::disk($this->disk);
+
+        try {
+            $rules      = $this->uploadRules();
+            $fieldRules = ['upload' => data_get($rules, $field, [])];
+
+            $this->validate($request, $fieldRules, $this->messages(), $this->attributes());
+
+            $uploadedFile = $request->file('upload');
+            $filename     = $this->getUploadedFilename($field, $uploadedFile);
+            $id           = $storage->putFileAs($this->uploadDir, $uploadedFile, $filename);
+
+            if (method_exists($this, 'uploaded')) {
+                $id = $this->uploaded($id);
+            }
+
+            return response()->json([
+                'action' => $this->action,
+                'data'   => [],
+                'files'  => [
+                    'files' => [
+                        $id => [
+                            'filename'      => $id,
+                            'original_name' => $uploadedFile->getClientOriginalName(),
+                            'size'          => $uploadedFile->getSize(),
+                            'directory'     => $this->uploadDir,
+                            'disk'          => $this->disk,
+                            'url'           => $storage->url($id),
+                        ],
+                    ],
+                ],
+                'upload' => [
+                    'id' => $id,
+                ],
+            ]);
+        } catch (ValidationException $exception) {
+            return response()->json([
+                'action'      => $this->action,
+                'data'        => [],
+                'fieldErrors' => [
+                    [
+                        'name'   => $field,
+                        'status' => str_replace('upload', $field, $exception->errors()['upload'][0]),
+                    ],
+                ],
+            ]);
+        }
+    }
+
+    /**
+     * Upload validation rules.
+     *
+     * @return array
+     */
+    public function uploadRules()
+    {
+        return [];
+    }
+
+    /**
+     * @param string $field
+     * @param UploadedFile $uploadedFile
+     * @return string
+     */
+    protected function getUploadedFilename($field, UploadedFile $uploadedFile)
+    {
+        return date('Ymd_His') . '_' . $uploadedFile->getClientOriginalName();
     }
 }

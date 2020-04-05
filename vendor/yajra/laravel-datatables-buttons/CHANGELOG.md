@@ -1,5 +1,19 @@
 # Laravel DataTables Buttons Plugin CHANGELOG.
 
+## v4.9.0 - 04-03-2020
+
+- Allow Laravel 7 [#102], credits to @barryvdh.
+
+## v4.8.0 - 09-10-2019
+
+- Extract html builder to own class. [#99]
+- Add command to generate html builder `php artisan datatables:html`.
+- Add `--builder` option on `make` command.
+
+## v4.7.0 - 09-04-2019
+
+- Add support Laravel 6.0 & remove deprecated functions. [#98], credits to @sangnguyenplus.
+
 ## v4.6.0 - 02-27-2019
 
 - Add support for dataTable 9.0 / Laravel 5.8 [#89].
@@ -176,6 +190,8 @@ ajax(), dataTable(), query(), csv(), excel(), pdf(), printPreview()
 [#76]: https://github.com/yajra/laravel-datatables-buttons/pull/76
 [#78]: https://github.com/yajra/laravel-datatables-buttons/pull/78
 [#89]: https://github.com/yajra/laravel-datatables-buttons/pull/89
+[#99]: https://github.com/yajra/laravel-datatables-buttons/pull/99
+[#102]: https://github.com/yajra/laravel-datatables-buttons/pull/102
 
 [#19]: https://github.com/yajra/laravel-datatables-buttons/issues/19
 [#1558]: https://github.com/yajra/laravel-datatables/issues/1558

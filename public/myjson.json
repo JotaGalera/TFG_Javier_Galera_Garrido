@@ -1,0 +1,84 @@
+{
+            "type": "FeatureCollection",
+            "features": [{"type": "Feature","properties":{"tags":{
+                            "height":"3.9", "name": "CETIC","postname":"Clase 0.1","inventario":[{"id":1,"ubicacion_id":1,"numero_serie":123456789,"name":"Monitor","description":"Monitor LG","created_at":"2019-06-08 18:02:10","updated_at":"2019-06-09 23:44:30","deleted_at":null,"espacio_id":3},{"id":2,"ubicacion_id":1,"numero_serie":987654321,"name":"Proyector","description":"Proyector ASUS (techo)","created_at":"2019-06-08 18:23:58","updated_at":"2019-06-18 19:51:41","deleted_at":null,"espacio_id":3}]},"relations":[{
+                                "role":"buildingpart",
+                                "reltags":{
+                                        "height":"4.0",
+                                        "type":"level",
+                                        "level":0}}]},"geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                [-3.62433085,37.19820504],[-3.6244493,37.1980896],[-3.62415827,37.19806835],[-3.62413777,37.19819236]]]}},{"type": "Feature","properties":{"tags":{
+                            "height":"3.9", "name": "CETIC","postname":"Clase 0.2","inventario":[]},"relations":[{
+                                "role":"buildingpart",
+                                "reltags":{
+                                        "height":"4.0",
+                                        "type":"level",
+                                        "level":0}}]},"geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                [-3.624150,37.198067],[-3.623931,37.19805],[-3.623905,37.198177],[-3.624130,37.19819136]]]}},{"type": "Feature","properties":{"tags":{
+                            "height":"3.9", "name": "CETIC","postname":"Clase 0.3","inventario":[]},"relations":[{
+                                "role":"buildingpart",
+                                "reltags":{
+                                        "height":"4.0",
+                                        "type":"level",
+                                        "level":0}}]},"geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                [-3.623925,37.198049],[-3.623731,37.198035],[-3.623710,37.198164],[-3.623900,37.19817550]]]}},{"type": "Feature","properties":{"tags":{
+                            "height":"3.9", "name": "CETIC","postname":"Clase 0.4","inventario":[]},"relations":[{
+                                "role":"buildingpart",
+                                "reltags":{
+                                        "height":"4.0",
+                                        "type":"level",
+                                        "level":0}}]},"geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                [-3.623645,37.198039],[-3.623530,37.198035],[-3.623516,37.198151],[-3.623630,37.19815650]]]}},{"type": "Feature","properties":{"tags":{
+                            "height":"3.9", "name": "CETIC","postname":"Aula","inventario":[{"id":4,"ubicacion_id":3,"numero_serie":1234567890,"name":"Monitor","description":"LG, 17\"","created_at":"2019-06-15 18:06:17","updated_at":"2019-06-15 18:07:27","deleted_at":null,"espacio_id":7},{"id":6,"ubicacion_id":3,"numero_serie":12345,"name":"Proyector","description":"LG","created_at":"2019-06-15 18:07:17","updated_at":"2019-06-15 18:07:27","deleted_at":null,"espacio_id":7}]},"relations":[{
+                                "role":"buildingpart",
+                                "reltags":{
+                                        "height":"4.0",
+                                        "type":"level",
+                                        "level":1}}]},"geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                [-3.624522686005,37.197971364177],[-3.624289333820,37.197958545073],[-3.624289333820,37.198016231023],[-3.624517321587,37.198029050117]]]}},{"type": "Feature","properties":{"tags":{
+                            "height":"3.9", "name": "CETIC","postname":"Aula","inventario":[]},"relations":[{
+                                "role":"buildingpart",
+                                "reltags":{
+                                        "height":"4.0",
+                                        "type":"level",
+                                        "level":1}}]},"geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                [-3.623827993870,37.197930770340],[-3.623852133751,37.197642339820],[-3.623433709145,37.197620974552],[-3.623412251472,37.197900859078]]]}},{"type": "Feature","properties":{"tags":{
+                            "height":"3.9", "name": "CETIC","postname":"Aula","inventario":[]},"relations":[{
+                                "role":"buildingpart",
+                                "reltags":{
+                                        "height":"4.0",
+                                        "type":"level",
+                                        "level":1}}]},"geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                ]]}},{"type": "Feature","properties":{"tags":{
+                            "height":"3.9", "name": "CETIC","postname":"Despacho","inventario":[]},"relations":[{
+                                "role":"buildingpart",
+                                "reltags":{
+                                        "height":"4.0",
+                                        "type":"level",
+                                        "level":2}}]},"geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                [-3.624517321587,37.197971364177],[-3.624270558357,37.197958545073],[-3.624267876148,37.198011957991],[-3.624511957169,37.198029050117],[-3.624520003796,37.197969227659]]]}},{"type": "Feature","properties":{"tags":{
+                            "height":"3.9", "name": "CETIC","postname":"Despacho","inventario":[]},"relations":[{
+                                "role":"buildingpart",
+                                "reltags":{
+                                        "height":"4.0",
+                                        "type":"level",
+                                        "level":2}}]},"geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                ]]}}]}
