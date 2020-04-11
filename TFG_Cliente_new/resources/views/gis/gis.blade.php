@@ -85,17 +85,19 @@ $.getJSON("myjson.json", function(geoJSON) {
             return feature.properties.relations[0].reltags.level;
         },
         onEachFeature: function(feature, layer) {
-            console.log(feature);
             var name = JSON.stringify(feature.properties.tags.name);
-            
             var postname = JSON.stringify(feature.properties.tags.postname);
-            
+            var arrayFornitures = Array.from(feature.properties.tags.inventario);
+            var descriptionFornitures = ""
+            for (i = 0; i < arrayFornitures.length; i++) {
+                descriptionFornitures += "<br>-" + arrayFornitures[i].name + ", desc: " + arrayFornitures[i].description;
+            }
+        
             if(postname){
-                var cadenafinal = name+","+postname;
+                var cadenafinal = "Edificio: "+name+"<br>Tipo de hab.:"+postname+"<br>Inventario:"+descriptionFornitures;
             }else{
                 var cadenafinal = name;
             }
-
             layer.bindPopup(cadenafinal);
         },
         style: function(feature) {
