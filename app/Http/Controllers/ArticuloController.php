@@ -24,7 +24,6 @@ class ArticuloController extends Controller
 
   public function store(Request $request)
   {
-
     $validateData = $request->validate([
       'ubicacion_mod'    => 'required',
       'name'             => 'required|max:255',
@@ -66,7 +65,7 @@ class ArticuloController extends Controller
 
     return response()->json(['success'=>'Articulo modificado correctamente.']);
   }
-
+  
   public function updateEspacio(Request $request, $id_espacio)
   {
     foreach($request->articulo as $r){
@@ -106,6 +105,20 @@ class ArticuloController extends Controller
     ->get(['articulo.*']);
 
     return $articulos;
+  }
+
+  public function getProductsAlquiler($espacio_id)
+  {
+    $articulos = \App\Articulo::where('articulo.espacio_id',"=",$espacio_id)
+    ->where('articulo.count',">",0)
+    ->get(['articulo.*']);
+    $ubicacionArticulos = \App\Articulo::whereNull('articulo.espacio_id')
+    ->where('articulo.count',">",0)
+    ->get(['articulo.*']);
+
+    $mergeQueries = $ubicacionArticulos->merge($articulos);
+
+    return $mergeQueries;
   }
 
   public function getArticuloUbicacion($id_ubicacion)

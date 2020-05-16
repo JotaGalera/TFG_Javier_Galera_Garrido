@@ -30,6 +30,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Fecha</th>
                                 <th>Usuario</th>
                                 <th>Espacio</th>
                                 <th>Pagado</th>
@@ -222,6 +223,7 @@ $(document).ready(function() {
             "ajax": "/alquiler/getdatatable",
             "columns":[
                 {data:'id'},
+                {data:'fecha_alquiler'},
                 {data:'name_user'},
                 {data:'name_space'},
                 {data:'pagado'},
@@ -246,13 +248,11 @@ $(document).ready(function() {
                 },
             success:function(data)
             {
-                console.log(data);
                 alertify.success('Alquiler cancelado correctamente.');
                 $('#tableAlquiler').DataTable().ajax.reload(null, false);
             },
             error:function(data)
             {
-                console.log(data);
                 alertify.error('ERROR: No se ha podido cancelar la reserva.');
             }
         })

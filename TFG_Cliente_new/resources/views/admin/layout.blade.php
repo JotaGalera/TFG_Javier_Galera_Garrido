@@ -138,8 +138,9 @@
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">MAPA</li>
-                        
                         <li <?php if(Route::currentRouteName() == "gis"){ ?>class="active" <?php } ?>><a href="/gis"><i class="fa fa-map"></i> <span>GIS</span></a></li>
+                        <li class="header">ADMINISTRACIÓN</li>
+                        <li <?php if(Route::currentRouteName() == "alquiler"){ ?>class="active" <?php } ?>><a href="/alquiler"><i class="fa fa-map"></i> <span>Alquiler</span></a></li>
                         
                     </ul>
                     <!-- /.sidebar-menu -->

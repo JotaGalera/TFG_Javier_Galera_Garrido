@@ -108,6 +108,8 @@ Route::middleware(['auth'])->group(function(){
 		->middleware('permission:alquiler.index');		
 	Route::get('alquiler/getdatatable','AlquilerController@getDatatable')->name('alquiler.getdatatable')
 		->middleware('permission:alquiler.index');
+	Route::get('alquiler/getdatatable/{user_id}','AlquilerController@getDataTableAlquilerUser')->name('alquiler.getdatatablealquileruser')
+		->middleware('permission:alquiler.index');
 	Route::resource('alquiler','AlquilerController')
 		->middleware('permission:alquiler.index');
 

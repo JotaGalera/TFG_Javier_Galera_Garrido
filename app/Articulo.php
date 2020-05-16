@@ -14,7 +14,7 @@ class Articulo extends Model
     protected $dates = ['deleted_at'];
 
 	  protected $fillable = [
-        'ubicacion_id','numero_serie','name','description','precio'
+        'ubicacion_id','numero_serie','name','description','precio','count'
     ];
     /**
      * The users that belong to the role.

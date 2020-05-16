@@ -22,7 +22,7 @@
                 <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">AVERIAS PENDIENTES</span>
+                    <span class="info-box-text">RESERVAS SOLICITADAS</span>
                     <span class="info-box-number">15</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -35,7 +35,7 @@
                 <span class="info-box-icon bg-red"><i class="fa fa-calendar"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">ACTUACIONES PREVENTIVAS</span>
+                    <span class="info-box-text">RESERVAS ACEPTADAS</span>
                     <span class="info-box-number">35</span>
                 </div>
                 <!-- /.info-box-content -->
@@ -47,32 +47,7 @@
         <!-- fix for small devices only -->
         <div class="clearfix visible-sm-block"></div>
 
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="ion ion-folder"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">ACTUACIONES CORRECTIVAS</span>
-                    <span class="info-box-number">34</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="ion ion-document"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">PARTES PENDIENTES DE FIRMAR</span>
-                    <span class="info-box-number">50</span>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
+        
     </div>
     <!-- /.row -->
 
@@ -84,7 +59,7 @@
             <!-- TABLE: LATEST ORDERS -->
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Últimas averias</h3>
+                    <h3 class="box-title">Mis reservas</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>

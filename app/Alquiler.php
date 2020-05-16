@@ -15,17 +15,21 @@ class Alquiler extends Model
     protected $dates = ['deleted_at'];
 
 	  protected $fillable = [
-        'fecha_alquiler','user_id','espacio_id','pagado'
+        'fecha_alquiler','user_id','ubicacion_id','espacio_id','pagado','notes'
     ];
     /**
      * The users that belong to the role.
      */
     public function User()
     {
-        return $this->belongsTo('App\Ubicacion');
+        return $this->belongsTo('App\User');
     }
     public function Espacio()
     {
         return $this->belongsTo('App\Espacio');
+    }
+    public function Ubicacion()
+    {
+        return $this->belongsTo('App\Ubicacion');
     }
 }

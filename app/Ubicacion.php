@@ -30,7 +30,10 @@ class Ubicacion extends Model
     {
         return $this->hasMany('App\Articulo');
     }
-
+    public function Alquiler()
+    {
+        return $this->belongsTo('App\Ubicacion');
+    }
 	  protected $fillable = [
         'name','address','number','codigo_postal'
     ];

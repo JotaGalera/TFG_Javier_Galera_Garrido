@@ -18,13 +18,6 @@
         <!-- iCheck -->
         <link rel="stylesheet" href="/admin-lte/plugins/iCheck/square/blue.css">
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
         <!-- Google Font -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     </head>
@@ -72,27 +65,6 @@
                     </div>
                 </form>
             </div>
-            <!---<div class="modal fade" id="modal-default">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Versión DEMO</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Tu muertos Acaba de acceder a la versión demo de nuestro sistema de <code>Gestión del Mantenimiento Asistido por Ordenador</code></p>
-                            <p>Deberá tener en cuenta que esta aplicación no tiene funcionalidades asociadas, únicamente podrá visualizar las secciones y sus características.</p>
-                            <p>Los datos contenidos tampoco son los definitivos, estos han sido introducidos con motivo de tener una visión mas aproximada de como quedará la aplicación.</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar y continuar con demo</button>
-                        </div>
-                    </div>
-                </div>-->
-                <!-- /.modal-dialog -->
-            </div>
-            <!-- /.login-box-body -->
         </div>
         <!-- /.login-box -->
 

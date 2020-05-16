@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Session;
 
 class LoginController extends Controller
 {
@@ -83,8 +84,8 @@ class LoginController extends Controller
                                               'Authorization' => 'Bearer '.session()->get('token_api')]
                         ]);
             
-            $respuestaUser = json_decode($resUser->getBody());
-
+            //$respuestaUser = json_decode($resUser->getBody());
+            
             // session()->put('user_name', $respuestaUser->name);
             // session()->put('user', $respuestaUser->user);
             // session()->put('email', $respuestaUser->email);
