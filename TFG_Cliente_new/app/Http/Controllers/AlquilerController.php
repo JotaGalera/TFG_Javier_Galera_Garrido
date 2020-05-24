@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Controllers\Auth;
+use DateTime;
 
 class AlquilerController extends Controller
 {
@@ -29,8 +30,9 @@ class AlquilerController extends Controller
     }
 
     public function store(Request $request){
-        $newDate = date("Y-m-d", strtotime($request['fecha_alquiler']));
-
+        $date1 = strtr($request['fecha_alquiler'], '/', '-'); 
+        $newDate = date("Y-m-d", strtotime($date1));
+    
         if($request['notes_mod'] == null) $validateData['notes_mod'] = '';
         
         $client = new \GuzzleHttp\Client();
