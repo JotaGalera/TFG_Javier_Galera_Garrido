@@ -4,10 +4,14 @@ php:
   - 7.2
 
 before_script:
+  - rm -r vendor
+  - rm composer.lock
+  - rm -r TFG_Cliente_new
+  - composer clearcache
   - cp .env.travis .env
+  - composer install
   - composer self-update
-  - php artisan key:generate
-  
+
   - php artisan migrate
 
 before_install:
