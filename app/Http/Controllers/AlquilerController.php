@@ -23,6 +23,11 @@ class AlquilerController extends Controller
 
     public function destroy($id)
     {
+        $obj = \App\AlquilerItems::where('alquiler_id',$id)->get();
+        foreach($obj as $item){
+            $item->delete();
+        }
+
         $obj = \App\Alquiler::find($id);
         $obj->delete();
         return $obj;
@@ -46,9 +51,10 @@ class AlquilerController extends Controller
         ]);
         
         foreach($request->articulo as $r){
-            $obj = \App\Articulo::find($r);
-            $obj->count = $obj->count - 1;
-            $obj->update();
+            $obj = \App\AlquilerItems::create([
+                'articulo_id'    => $r,
+                'alquiler_id'    => $obj->id
+            ]);
         }
 
         return response()->json(['success'=>'Articulo añadido correctamente.']);

@@ -32,4 +32,9 @@ class Alquiler extends Model
     {
         return $this->belongsTo('App\Ubicacion');
     }
+    public function AlquilerItems()
+    {
+        return $this->hasMany('App\AlquilerItems');
+    }
+
 }

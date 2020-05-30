@@ -9,7 +9,7 @@ class AlquilerItems extends Model
 {
     use SoftDeletes;
 
-    protected $table    = 'alquiler_item';
+    protected $table    = 'alquiler_items';
 
     protected $dates = ['deleted_at'];
 
@@ -21,10 +21,10 @@ class AlquilerItems extends Model
      */
     public function Articulo()
     {
-        return $this->belongsTo('App\Articulo');
+        return $this->hasMany('App\Articulo');
     }
     public function Alquiler()
     {
-        return $this->belongsTo('App\Alquiler');
+        return $this->hasMany('App\Alquiler');
     }
 }
