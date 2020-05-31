@@ -110,6 +110,8 @@
 @stop
 @push('scripts')
 <script>
+
+
 $('.datepicker').datepicker({
     todayBtn: "linked",
     language: "es",
@@ -218,7 +220,7 @@ $('#espacio_mod').select2({
             };
         },
         url: function () {
-            return '/espacio/getespacioubicacion/'+$('#ubicacion_mod').val();
+            return '/espacio/getespacioubicaciondisponible/'+$('#ubicacion_mod').val()+'/'+ transformDate($('#fecha_alquiler').val(),'/');
         },
         processResults: function (data) {
             return {
@@ -231,7 +233,7 @@ $('#espacio_mod').select2({
 }).on('chage' , function (e) {
     $("#products").val(null).trigger("change");
 });
-    
+
 $('#articulo').select2({
     placeholder: " - Busca y seleccione los productos - ",
     ajax: {
@@ -252,5 +254,18 @@ $('#articulo').select2({
         }
     }
 });
+
+function transformDate(date,separador) {
+   var arrayDate = date.split(separador)
+   var arrayReturn = ""
+
+   for (var i=0; i < arrayDate.length; i++) {
+        arrayReturn += arrayDate[i]
+      if (i < arrayDate.length - 1){
+        arrayReturn += "-"
+      } 
+   }
+   return arrayReturn
+};
 </script>
 @endpush

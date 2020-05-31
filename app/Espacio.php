@@ -31,5 +31,9 @@ class Espacio extends Model
     {
         return $this->belongsToMany('App\Coordenadas');
     }
+    public function Alquiler()
+    {
+        return $this->hasMany('App\Alquiler');
+    }
 
 }

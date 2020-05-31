@@ -283,4 +283,27 @@ class EspacioController extends Controller
 
         return $espacios;
     }
+
+    public function getEspacioUbicacionDisponible($ubicacion_id,$fecha){
+        $user_id = auth()->user()->id;
+        $fechaFormated = strtr($fecha,'-','-'); 
+        $newDate = date("Y-m-d", strtotime($fecha));
+        
+        $espacios = \App\Espacio::with('Ubicacion')
+            ->whereHas('Ubicacion.User', function ($query) use($user_id,$ubicacion_id){
+                $query->where('user_id', '=', $user_id);
+                $query->where('ubicacion_id','=',$ubicacion_id);        
+            })->get();
+
+        $alquileres = \App\Espacio::with('Alquiler')
+        ->whereHas('Alquiler', function ($query) use($newDate){
+            $query->where('fecha_alquiler', '=', $newDate);
+            $query->orWhereNull('fecha_alquiler');
+        })
+        ->get();
+
+        $result = $espacios->diff($alquileres);
+
+        return $result;
+    }
 }

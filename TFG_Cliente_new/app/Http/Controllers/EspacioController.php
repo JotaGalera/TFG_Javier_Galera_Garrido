@@ -14,12 +14,13 @@ class EspacioController extends Controller
         return view('listado.listado', compact('articulo'));
     }
 
-    public function getEspacioUbicacion($ubicacion_id)
+    public function getEspacioUbicacionDisponible($ubicacion_id,$fecha)
     {
         $client = new \GuzzleHttp\Client();
-        $response = $client->get("http://tfggit.com/api/espacio/getespacioubicacion/". $ubicacion_id, [
-            'headers' => ['Authorization' => 'Bearer ' . session()->get('token_api')]
-        ]);
+        
+        $response = $client->get("http://tfggit.com/api/espacio/getespacioubicaciondisponible/". $ubicacion_id ."/". $fecha, [
+                'headers' => ['Authorization' => 'Bearer ' . session()->get('token_api')]
+            ]);
         $response_body = json_decode($response->getBody()->getContents());
         return $response_body;
     }
