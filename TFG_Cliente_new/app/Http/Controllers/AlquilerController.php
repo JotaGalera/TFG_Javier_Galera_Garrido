@@ -82,9 +82,10 @@ class AlquilerController extends Controller
         })->rawColumns(['action'])->make(true);
     }
 
-    public function getProductsAlquiler($espacio_id){
+    public function getProductsAlquiler($espacio_id,$fecha){
         $client = new \GuzzleHttp\Client();
-        $response = $client->get("http://tfggit.com/api/products/espacio&ubicacion/".$espacio_id, [
+        
+        $response = $client->get("http://tfggit.com/api/products/espacio&ubicacion/". $espacio_id . "/" . $fecha , [
             'headers' => ['Authorization' => 'Bearer ' . session()->get('token_api')]
         ]);
         $response_body = json_decode($response->getBody()->getContents());

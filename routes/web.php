@@ -5,6 +5,35 @@ use Illuminate\Support\Collection as Collection;
 use Yajra\Datatables\Datatables;
 use \App\Espacio;
 use \App\Articulo;
+use \App\AlquilerItems;
+
+Route::get('/dev', function(){
+	
+	$articulosUbicacionAlquilados = DB::table('articulo')
+      ->join('alquiler_items','alquiler_items.articulo_id','=','articulo.id')
+      ->join('alquiler','alquiler.id','=','alquiler_items.alquiler_id')
+      ->where('alquiler.fecha_alquiler','=','2020-05-31')
+      ->where('alquiler.ubicacion_id','=','1')
+      ->get();
+    
+    $arrayArticulosUbicacionAlquiladosID = array();
+    foreach ($articulosUbicacionAlquilados as $i){
+      array_push($arrayArticulosUbicacionAlquiladosID,$i->articulo_id);
+    }
+   return $arrayArticulosUbicacionAlquiladosID;
+    $articulos = \App\Articulo::where('articulo.espacio_id',"=",'6')
+      ->get(['articulo.*']);
+    
+    $ubicacionArticulos = \App\Articulo::whereNull('espacio_id')
+    ->whereNotIn('id' , $arrayArticulosUbicacionAlquiladosID )
+      ->get(['articulo.*']);
+
+    $mergeQueries = $ubicacionArticulos->merge($articulos);
+	
+    return $ubicacionArticulos;
+	echo $ubicacionID[0]->ubicacion->id;
+
+});
 ///////////////////
 
 Auth::routes();

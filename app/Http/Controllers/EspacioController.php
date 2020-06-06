@@ -286,7 +286,6 @@ class EspacioController extends Controller
 
     public function getEspacioUbicacionDisponible($ubicacion_id,$fecha){
         $user_id = auth()->user()->id;
-        $fechaFormated = strtr($fecha,'-','-'); 
         $newDate = date("Y-m-d", strtotime($fecha));
         
         $espacios = \App\Espacio::with('Ubicacion')

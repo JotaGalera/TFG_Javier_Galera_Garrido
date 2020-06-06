@@ -107,20 +107,36 @@ class ArticuloController extends Controller
     return $articulos;
   }
 
-  public function getProductsAlquiler($espacio_id)
+  public function getProductsAlquiler($espacio_id, $fecha)
   {
+    
+    $newDate = date("Y-m-d", strtotime($fecha));
+    $ubicacionID = \App\Espacio::with('Ubicacion')->where('espacios.id',$espacio_id)->get();
+    
+    $articulosUbicacionAlquilados = DB::table('articulo')
+      ->join('alquiler_items','alquiler_items.articulo_id','=','articulo.id')
+      ->join('alquiler','alquiler.id','=','alquiler_items.alquiler_id')
+      ->where('alquiler.fecha_alquiler','=',$newDate)
+      ->where('alquiler.ubicacion_id','=',$ubicacionID[0]->ubicacion->id)
+      ->get();
+    
+    $arrayArticulosUbicacionAlquiladosID = array();
+    foreach ($articulosUbicacionAlquilados as $i){
+      array_push($arrayArticulosUbicacionAlquiladosID,$i->articulo_id);
+    }
+   
     $articulos = \App\Articulo::where('articulo.espacio_id',"=",$espacio_id)
-    ->where('articulo.count',">",0)
-    ->get(['articulo.*']);
-    $ubicacionArticulos = \App\Articulo::whereNull('articulo.espacio_id')
-    ->where('articulo.count',">",0)
-    ->get(['articulo.*']);
+      ->get(['articulo.*']);
+    
+    $ubicacionArticulos = \App\Articulo::whereNull('espacio_id')
+    ->whereNotIn('id' , $arrayArticulosUbicacionAlquiladosID )
+      ->get(['articulo.*']);
 
     $mergeQueries = $ubicacionArticulos->merge($articulos);
-
-    return $mergeQueries;
+	
+    return $ubicacionArticulos;
   }
-
+  
   public function getArticuloUbicacion($id_ubicacion)
   {
     return Datatables::of(\App\Articulo::where('ubicacion_id',$id_ubicacion))

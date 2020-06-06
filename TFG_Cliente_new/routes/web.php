@@ -38,10 +38,9 @@ Route::middleware(['auth.api'])->group(function(){
 	Route::get('alquiler', 'AlquilerController@index')->name('alquiler');
 	Route::get('alquiler/getdatatable/{user_id}','AlquilerController@getDataTableAlquilerUser')->name('alquiler.getdatatablealquileruser');
 	Route::get('ubicacion/all', 'UbicacionController@all')->name('ubicacion.all');
-	//Route::get('espacio/getespacioubicacion/{ubicacion_id}','EspacioController@getEspacioUbicacion')->name('espacio.getespacioubicacion');
 	Route::get('espacio/getespacioubicaciondisponible/{ubicacion_id}/{fecha}','EspacioController@getEspacioUbicacionDisponible')->name('espacio.getespacioubicaciondisponible');
 
-	Route::get('alquiler/articulos/espacio&ubicacion/{espacio_id}', 'AlquilerController@getProductsAlquiler')->name('ubicacion.getproductsalquiler');
+	Route::get('alquiler/articulos/espacio&ubicacion/{espacio_id}/{fecha}', 'AlquilerController@getProductsAlquiler')->name('alquiler.getproductsalquiler');
 	Route::post('alquiler/delete/{id}','AlquilerController@delete')->name('alquiler.delete');
 	Route::resource('alquiler','AlquilerController');
 	//ROUTE json

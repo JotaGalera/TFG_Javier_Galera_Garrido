@@ -24,9 +24,8 @@ Route::middleware('auth:api')->group(function () {
     
     Route::get('/ubicacion/all','UbicacionController@all')->name('ubicacion.all');
     
-    Route::get('/products/espacio&ubicacion/{espacio_id}','ArticuloController@getProductsAlquiler')->name('articulo.getproductsalquiler');
-
-    Route::get('/espacio/getespacioubicacion/{ubicacion_id}','EspacioController@getEspacioUbicacion')->name('espacio.getespacioubicacion');
+    Route::get('/products/espacio&ubicacion/{espacio_id}/{fecha}','ArticuloController@getProductsAlquiler')->name('articulo.getproductsalquiler');
+    
     Route::get('/espacio/getespacioubicaciondisponible/{espacio_id}/{fecha}','EspacioController@getEspacioUbicacionDisponible')->name('espacio.getespacioubicaciondisponible');
     
     Route::get('/alquiler/getdatatable/{user_id}','AlquilerController@getDataTableAlquilerUser')->name('alquiler.getdatatablealquileruser');

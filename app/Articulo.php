@@ -27,4 +27,8 @@ class Articulo extends Model
     {
         return $this->belongsTo('App\Espacio');
     }
+    public function AlquilerItems()
+    {
+        return $this->hasMany('App\AlquilerItems');
+    }
 }

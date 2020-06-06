@@ -243,7 +243,7 @@ $('#articulo').select2({
             };
         },
         url: function () {
-            return '/alquiler/articulos/espacio&ubicacion/'+$('#espacio_mod').val();
+            return '/alquiler/articulos/espacio&ubicacion/'+$('#espacio_mod').val()+'/'+ transformDate($('#fecha_alquiler').val(),'/');
         },
         processResults: function (data) {
             return {

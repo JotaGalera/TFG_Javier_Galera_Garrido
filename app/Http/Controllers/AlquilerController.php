@@ -23,8 +23,11 @@ class AlquilerController extends Controller
 
     public function destroy($id)
     {
+        
         $obj = \App\AlquilerItems::where('alquiler_id',$id)->get();
+        print_r("holaasd");
         foreach($obj as $item){
+            print_r("hola".$item);
             $item->delete();
         }
 
