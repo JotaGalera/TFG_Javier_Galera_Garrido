@@ -142,16 +142,19 @@ class ArticuloController extends Controller
     return Datatables::of(\App\Articulo::where('ubicacion_id',$id_ubicacion))
     ->addColumn('floor',function($obj){
       $stringDatos = "";
-      $nombre_espacio = DB::table('articulo_espacio')
-      ->join('articulo','articulo.id','=','articulo_espacio.articulo_id')
-      ->join('espacios','espacios.id','=','articulo_espacio.espacio_id')
-      ->select('espacios.floor','espacios.number')
-      ->where('articulo_espacio.articulo_id','=',$obj->id)
-      ->where('articulo.deleted_at','=',null)
-      ->get();
-      foreach($nombre_espacio as $n)
-      $stringDatos = "Piso: ".$n->floor." , Nº:".$n->number;
-        return $stringDatos;
+      $ubicacion = $obj['ubicacion_id'];
+      $nombre_espacio = \App\Articulo::with('Espacio','Ubicacion')
+				->whereHas('Espacio.Ubicacion', function ($query) use($ubicacion){
+          $query->where('ubicacion.id',$ubicacion);
+        })
+        ->where('articulo.id','=',$obj['id'])   
+        ->where('articulo.deleted_at','=',null)
+				->get();
+      
+        foreach ($nombre_espacio as $n)
+        $stringDatos = "P: ". $n->Espacio->floor ." Nº:". $n->Espacio->number;
+   
+      return $stringDatos;
     })
     ->addColumn('nombre_ubicacion',function($obj){
         $nombre_ubicacion = \App\Ubicacion::where('id','like',$obj['ubicacion_id'])->get();
