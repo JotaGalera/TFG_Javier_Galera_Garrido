@@ -347,7 +347,7 @@ $(document).ready(function() {
                 console.log(data);
                 alertify.success('Articulo asignado al espacio correctamente');
                 $("#articulo").prop('selectedIndex',0);
-                
+                $('#modalAddArticulo').modal('hide');
             },
             error:function(data)
             {
