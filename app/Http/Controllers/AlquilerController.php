@@ -54,7 +54,7 @@ class AlquilerController extends Controller
         ]);
         
         foreach($request->articulo as $r){
-            $obj = \App\AlquilerItems::create([
+            $alquilerItem = \App\AlquilerItems::create([
                 'articulo_id'    => $r,
                 'alquiler_id'    => $obj->id
             ]);

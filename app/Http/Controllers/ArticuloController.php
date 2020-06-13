@@ -112,7 +112,7 @@ class ArticuloController extends Controller
     
     $newDate = date("Y-m-d", strtotime($fecha));
     $ubicacionID = \App\Espacio::with('Ubicacion')->where('espacios.id',$espacio_id)->get();
-    
+  
     $articulosUbicacionAlquilados = DB::table('articulo')
       ->join('alquiler_items','alquiler_items.articulo_id','=','articulo.id')
       ->join('alquiler','alquiler.id','=','alquiler_items.alquiler_id')
@@ -130,11 +130,12 @@ class ArticuloController extends Controller
     
     $ubicacionArticulos = \App\Articulo::whereNull('espacio_id')
     ->whereNotIn('id' , $arrayArticulosUbicacionAlquiladosID )
+    ->where('ubicacion_id',$ubicacionID[0]->ubicacion->id)
       ->get(['articulo.*']);
 
     $mergeQueries = $ubicacionArticulos->merge($articulos);
 	
-    return $ubicacionArticulos;
+    return $mergeQueries;
   }
   
   public function getArticuloUbicacion($id_ubicacion)

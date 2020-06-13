@@ -193,6 +193,12 @@ $('#btn-new').click(function(){
     })
 });
 
+$('.datepicker').on('change', function(e) {
+    $("#ubicacion_mod").val(null).trigger("change");
+    $("#espacio_mod").val(null).trigger("change");
+    $("#articulo").val(null).trigger("change");
+})
+
 $('#ubicacion_mod').select2({
     minimumResultsForSearch: Infinity,
     placeholder: " - Busca y selecciona una ubicación - ",
@@ -209,6 +215,7 @@ $('#ubicacion_mod').select2({
     }
 }).on('change', function (e) {
     $("#espacio_mod").val(null).trigger("change");
+    $("#articulo").val(null).trigger("change");
 })
 
 $('#espacio_mod').select2({
@@ -231,7 +238,7 @@ $('#espacio_mod').select2({
         }
     }
 }).on('chage' , function (e) {
-    $("#products").val(null).trigger("change");
+    $("#articulo").val(null).trigger("change");
 });
 
 $('#articulo').select2({

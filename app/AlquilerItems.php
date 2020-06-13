@@ -21,10 +21,10 @@ class AlquilerItems extends Model
      */
     public function Articulo()
     {
-        return $this->hasMany('App\Articulo');
+        return $this->belongsToMany('App\Articulo');
     }
     public function Alquiler()
     {
-        return $this->hasMany('App\Alquiler');
+        return $this->belongsToMany('App\Alquiler');
     }
 }
