@@ -4,9 +4,12 @@ php:
   - 7.1.33
 
 before_script:
+  - rm -r vendor
+  - rm composer.lock
   - rm -r TFG_Cliente_new
   - composer clearcache
   - cp .env.travis .env
+  - npm install
   - composer install
 
   
