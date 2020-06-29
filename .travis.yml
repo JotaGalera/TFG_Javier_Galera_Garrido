@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 7.1
+  - 7.1.33
 
 before_script:
   - rm -r TFG_Cliente_new
