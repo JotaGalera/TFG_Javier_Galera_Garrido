@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "7.1.33",
+        "php": "7.3",
         "anam/phantomjs-linux-x86-binary": "^2.1",
         "anam/phantommagick": "^2.0",
         "caffeinated/shinobi": "^3.3",
@@ -21,7 +21,7 @@
         "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
-        "symfony/translation": "4.2.*",
+        "symfony/translation": "^4.2.*",
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
