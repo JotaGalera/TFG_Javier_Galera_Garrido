@@ -171,11 +171,7 @@ class ParallelExecutor implements ExecutorInterface
         }
 
         $command = "$dep $file worker $arguments $options --hostname $hostname --task $taskName --config-file $configFile";
-        if (method_exists('Symfony\Component\Process\Process', 'fromShellCommandline')) {
-            $process = Process::fromShellCommandline($command);
-        } else {
-            $process = new Process($command);
-        }
+        $process = Process::fromShellCommandline($command);
 
         if (!defined('DEPLOYER_PARALLEL_PTY')) {
             $process->setPty(true);

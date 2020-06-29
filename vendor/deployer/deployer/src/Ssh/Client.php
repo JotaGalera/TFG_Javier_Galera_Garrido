@@ -68,7 +68,7 @@ class Client
             $command = escapeshellarg($command);
 
             $ssh = "ssh $sshArguments $host $command";
-            $process = $this->createProcess($ssh);
+            $process = new Process($ssh);
             $process
                 ->setTimeout($config['timeout'])
                 ->setTty(true)
@@ -89,7 +89,7 @@ class Client
             $ssh = "ssh $sshArguments $host $become '$shellCommand; printf \"[exit_code:%s]\" $?;'";
         }
 
-        $process = $this->createProcess($ssh);
+        $process = new Process($ssh);
         $process
             ->setInput($command)
             ->setTimeout($config['timeout']);
@@ -146,7 +146,7 @@ class Client
 
     private function isMultiplexingInitialized(Host $host, Arguments $sshArguments)
     {
-        $process = $this->createProcess("ssh -O check $sshArguments $host 2>&1");
+        $process = new Process("ssh -O check $sshArguments $host 2>&1");
         $process->run();
         return (bool)preg_match('/Master running/', $process->getOutput());
     }
@@ -173,14 +173,5 @@ class Client
             $exitCode = 1;
         }
         return $output;
-    }
-
-    private function createProcess($command)
-    {
-        if (method_exists('Symfony\Component\Process\Process', 'fromShellCommandline')) {
-            return Process::fromShellCommandline($command);
-        } else {
-            return new Process($command);
-        }
     }
 }

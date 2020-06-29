@@ -77,9 +77,11 @@ class Csv extends BaseWriter
     /**
      * Save PhpSpreadsheet to file.
      *
-     * @param resource|string $pFilename
+     * @param string $pFilename
+     *
+     * @throws Exception
      */
-    public function save($pFilename): void
+    public function save($pFilename)
     {
         // Fetch sheet
         $sheet = $this->spreadsheet->getSheet($this->sheetIndex);
@@ -90,7 +92,10 @@ class Csv extends BaseWriter
         Calculation::setArrayReturnType(Calculation::RETURN_ARRAY_AS_VALUE);
 
         // Open file
-        $this->openFileHandle($pFilename);
+        $fileHandle = fopen($pFilename, 'wb+');
+        if ($fileHandle === false) {
+            throw new Exception("Could not open file $pFilename for writing.");
+        }
 
         if ($this->excelCompatibility) {
             $this->setUseBOM(true); //  Enforce UTF-8 BOM Header
@@ -99,15 +104,13 @@ class Csv extends BaseWriter
             $this->setDelimiter(';'); //  Set delimiter to a semi-colon
             $this->setLineEnding("\r\n");
         }
-
         if ($this->useBOM) {
             // Write the UTF-8 BOM code if required
-            fwrite($this->fileHandle, "\xEF\xBB\xBF");
+            fwrite($fileHandle, "\xEF\xBB\xBF");
         }
-
         if ($this->includeSeparatorLine) {
             // Write the separator line if required
-            fwrite($this->fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
+            fwrite($fileHandle, 'sep=' . $this->getDelimiter() . $this->lineEnding);
         }
 
         //    Identify the range that we need to extract from the worksheet
@@ -119,10 +122,12 @@ class Csv extends BaseWriter
             // Convert the row to an array...
             $cellsArray = $sheet->rangeToArray('A' . $row . ':' . $maxCol . $row, '', $this->preCalculateFormulas);
             // ... and write to the file
-            $this->writeLine($this->fileHandle, $cellsArray[0]);
+            $this->writeLine($fileHandle, $cellsArray[0]);
         }
 
-        $this->maybeCloseFileHandle();
+        // Close file
+        fclose($fileHandle);
+
         Calculation::setArrayReturnType($saveArrayReturnType);
         Calculation::getInstance($this->spreadsheet)->getDebugLog()->setWriteDebugLog($saveDebugLog);
     }
@@ -170,7 +175,10 @@ class Csv extends BaseWriter
      */
     public function setEnclosure($pValue)
     {
-        $this->enclosure = $pValue ? $pValue : '"';
+        if ($pValue == '') {
+            $pValue = null;
+        }
+        $this->enclosure = $pValue;
 
         return $this;
     }
@@ -302,7 +310,7 @@ class Csv extends BaseWriter
      * @param resource $pFileHandle PHP filehandle
      * @param array $pValues Array containing values in a row
      */
-    private function writeLine($pFileHandle, array $pValues): void
+    private function writeLine($pFileHandle, array $pValues)
     {
         // No leading delimiter
         $writeDelimiter = false;

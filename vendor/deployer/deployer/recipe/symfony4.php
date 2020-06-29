@@ -15,11 +15,7 @@ set('writable_dirs', ['var']);
 set('migrations_config', '');
 
 set('bin/console', function () {
-    return parse('{{release_path}}/bin/console');
-});
-
-set('console_options', function () {
-    return '--no-interaction';
+    return parse('{{bin/php}} {{release_path}}/bin/console --no-interaction');
 });
 
 desc('Migrate database');
@@ -29,17 +25,17 @@ task('database:migrate', function () {
         $options = sprintf('%s --configuration={{release_path}}/{{migrations_config}}', $options);
     }
 
-    run(sprintf('{{bin/php}} {{bin/console}} doctrine:migrations:migrate %s {{console_options}}', $options));
+    run(sprintf('{{bin/console}} doctrine:migrations:migrate %s', $options));
 });
 
 desc('Clear cache');
 task('deploy:cache:clear', function () {
-    run('{{bin/php}} {{bin/console}} cache:clear {{console_options}} --no-warmup');
+    run('{{bin/console}} cache:clear --no-warmup');
 });
 
 desc('Warm up cache');
 task('deploy:cache:warmup', function () {
-    run('{{bin/php}} {{bin/console}} cache:warmup {{console_options}}');
+    run('{{bin/console}} cache:warmup');
 });
 
 desc('Deploy project');

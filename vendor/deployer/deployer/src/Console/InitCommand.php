@@ -105,13 +105,7 @@ class InitCommand extends Command
             // Repo
             $default = false;
             try {
-
-                if (method_exists('Symfony\Component\Process\Process', 'fromShellCommandline')) {
-                    $process = Process::fromShellCommandline('git remote get-url origin');
-                } else {
-                    $process = new Process('git remote get-url origin');
-                }
-                $default = $process
+                $default = (new Process('git remote get-url origin'))
                     ->mustRun()
                     ->getOutput();
                 $default = trim($default);
@@ -154,8 +148,6 @@ class InitCommand extends Command
             '<info>Successfully created:</info> <comment>%s</comment>',
             $filePath
         ));
-
-        return 0;
     }
 
     /**

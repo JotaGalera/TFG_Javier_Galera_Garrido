@@ -313,13 +313,6 @@ Composer action. Default is `install`.
 
 Options for Composer.
 
-### default_timeout
-
-Will set the default_timeout for `run-commands` (0 = unlimited)
-~~~php
-set('default_timeout', 360);
-~~~
-
 ### env
 
 Array of environment variables.

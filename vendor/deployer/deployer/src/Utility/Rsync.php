@@ -43,11 +43,7 @@ class Rsync
 
         $this->pop->command($hostname, $rsync);
 
-        if (method_exists('Symfony\Component\Process\Process', 'fromShellCommandline')) {
-            $process = Process::fromShellCommandline($rsync);
-        } else {
-            $process = new Process($rsync);
-        }
+        $process = new Process($rsync);
         $process
             ->setTimeout($config['timeout'])
             ->mustRun($this->pop->callback($hostname));

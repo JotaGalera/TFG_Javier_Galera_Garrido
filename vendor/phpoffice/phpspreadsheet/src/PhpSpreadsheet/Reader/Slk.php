@@ -107,6 +107,8 @@ class Slk extends BaseReader
      *
      * @param string $pFilename
      *
+     * @throws Exception
+     *
      * @return array
      */
     public function listWorksheetInfo($pFilename)
@@ -175,6 +177,8 @@ class Slk extends BaseReader
      *
      * @param string $pFilename
      *
+     * @throws Exception
+     *
      * @return Spreadsheet
      */
     public function load($pFilename)
@@ -190,6 +194,9 @@ class Slk extends BaseReader
      * Loads PhpSpreadsheet from file into PhpSpreadsheet instance.
      *
      * @param string $pFilename
+     * @param Spreadsheet $spreadsheet
+     *
+     * @throws Exception
      *
      * @return Spreadsheet
      */

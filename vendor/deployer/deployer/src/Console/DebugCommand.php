@@ -81,7 +81,6 @@ class DebugCommand extends Command
 
         $this->buildTree($rootTaskName);
         $this->outputTree($rootTaskName);
-        return 0;
     }
 
     /**

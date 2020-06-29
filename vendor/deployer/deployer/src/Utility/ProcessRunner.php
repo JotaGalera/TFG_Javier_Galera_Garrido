@@ -44,12 +44,7 @@ class ProcessRunner
 
         $this->pop->command($hostname, $command);
 
-        if (method_exists('Symfony\Component\Process\Process', 'fromShellCommandline')) {
-            $process = Process::fromShellCommandline($command);
-        } else {
-            $process = new Process($command);
-        }
-
+        $process = Process::fromShellCommandline($command);
         $process
             ->setTimeout($config['timeout'])
             ->setTty($config['tty'])
