@@ -5,7 +5,6 @@ php:
 
 before_script:
   - rm -r vendor
-  - rm composer.lock
   - rm -r TFG_Cliente_new
   - composer clearcache
   - cp .env.travis .env
