@@ -16,6 +16,10 @@
         "symfony/psr-http-message-bridge": "^1.1",
         "yajra/laravel-datatables-editor": "^1.6",
         "laravel/passport": "^6.0",
+        "setasign/fpdf": "1.8",
+        "setasign/fpdi": "2.2",
+        "setasign/fpdi-protection": "2.0",
+        "dompdf/dompdf": "dev-master",
         "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {

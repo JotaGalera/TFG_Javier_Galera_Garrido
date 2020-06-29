@@ -22,7 +22,7 @@ return array(
     'App\\Espacio' => $baseDir . '/app/Espacio.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AlquilerController' => $baseDir . '/app/Http/Controllers/AlquilerController.php',
-    'App\\Http\\Controllers\\AlquilerItemController' => $baseDir . '/app/Http/Controllers/AlquilerItemController.php',
+    'App\\Http\\Controllers\\AlquilerItemsController' => $baseDir . '/app/Http/Controllers/AlquilerItemsController.php',
     'App\\Http\\Controllers\\ArticuloController' => $baseDir . '/app/Http/Controllers/ArticuloController.php',
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',

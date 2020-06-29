@@ -682,7 +682,7 @@ class ComposerStaticInitcd08b49cbf66fd5c5ab0917a8906e4d2
         'App\\Espacio' => __DIR__ . '/../..' . '/app/Espacio.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AlquilerController' => __DIR__ . '/../..' . '/app/Http/Controllers/AlquilerController.php',
-        'App\\Http\\Controllers\\AlquilerItemController' => __DIR__ . '/../..' . '/app/Http/Controllers/AlquilerItemController.php',
+        'App\\Http\\Controllers\\AlquilerItemsController' => __DIR__ . '/../..' . '/app/Http/Controllers/AlquilerItemsController.php',
         'App\\Http\\Controllers\\ArticuloController' => __DIR__ . '/../..' . '/app/Http/Controllers/ArticuloController.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
