@@ -11,7 +11,8 @@ before_script:
   - npm install
   - composer install
 
-  
+  - php artisan key:generate
+  - php artisan config:clear
 
 before_install:
   - mysql -e 'CREATE DATABASE tfgjgg_test2;'
