@@ -20,10 +20,6 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
-
-    /**
-     * The roles that belong to the user.
-     */
     public function roles()
     {
         return $this->belongsToMany('\Caffeinated\Shinobi\Models\Role')->withTimestamps();
@@ -34,20 +30,11 @@ class User extends Authenticatable
     public function Tarifa(){
         return $this->belongsTo('App\Tarifa');
     }
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    
     protected $fillable = [
         'name', 'user', 'email', 'password', 'rfid_tag', 'pin', 'externo','id_tarifa'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];

@@ -17,9 +17,7 @@ class Alquiler extends Model
 	  protected $fillable = [
         'fecha_alquiler','user_id','ubicacion_id','espacio_id','pagado','notes'
     ];
-    /**
-     * The users that belong to the role.
-     */
+    
     public function User()
     {
         return $this->belongsTo('App\User');

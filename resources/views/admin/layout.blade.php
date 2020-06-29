@@ -71,90 +71,7 @@
                     <!-- Navbar Right Menu -->
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                            <!-- Messages: style can be found in dropdown.less-->
-                            <li class="dropdown messages-menu">
-                                <!-- Menu toggle button -->
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="label label-success">2</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="header">Tiene 2 mensaje</li>
-                                    <li>
-                                        <!-- inner menu: contains the messages -->
-                                        <ul class="menu">
-                                            <li><!-- start message -->
-                                                <a href="#">
-                                                    <div class="pull-left">
-                                                        <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
-                                                    </div>
-                                                    <!-- Message title and timestamp -->
-                                                    <h4>
-                                                        Averia Dispositivo-13 resuelta
-                                                        <small><i class="fa fa-clock-o"></i> 5 min</small>
-                                                    </h4>
-                                                    <!-- The message -->
-                                                    <p>Se ha resuelto una avería</p>
-                                                </a>
-                                            </li>
-                                            <li><!-- start message -->
-                                                <a href="#">
-                                                    <div class="pull-left">
-                                                        <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
-                                                    </div>
-                                                    <!-- Message title and timestamp -->
-                                                    <h4>
-                                                        Parte pendiente de validar
-                                                        <small><i class="fa fa-clock-o"></i> 4 min</small>
-                                                    </h4>
-                                                    <!-- The message -->
-                                                    <p>Se ha resuelto una avería y tienes un parte <br />pendiente de validar</p>
-                                                </a>
-                                            </li>
-                                            <!-- end message -->
-                                        </ul>
-                                        <!-- /.menu -->
-                                    </li>
-                                    <li class="footer"><a href="#">Ver todos tus mensajes</a></li>
-                                </ul>
-                            </li>
-                            <!-- /.messages-menu -->
-                            <!-- Notifications Menu -->
-                            <li class="dropdown notifications-menu">
-                                <!-- Menu toggle button -->
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell-o"></i>
-                                    <span class="label label-warning">3</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="header">Tiene 3 notificaciones</li>
-                                    <li>
-                                        <!-- Inner Menu: contains the notifications -->
-                                        <ul class="menu">
-                                            <li><!-- start notification -->
-                                                <a href="#">
-                                                    <i class="fa fa-users text-aqua"></i> 4 Partes pendientes de validar
-                                                </a>
-                                            </li>
-                                            <!-- end notification -->
-                                            <li><!-- start notification -->
-                                                <a href="#">
-                                                    <i class="fa fa-users text-aqua"></i> 1 Actuación pendiente de realizar
-                                                </a>
-                                            </li>
-                                            <!-- end notification -->
-                                            <li><!-- start notification -->
-                                                <a href="#">
-                                                    <i class="fa fa-users text-aqua"></i> 2 Incidencias no resueltas
-                                                </a>
-                                            </li>
-                                            <!-- end notification -->
-
-                                        </ul>
-                                    </li>
-                                    <li class="footer"><a href="#">Ver todas</a></li>
-                                </ul>
-                            </li>
+                            
                             <!-- User Account Menu -->
                             <li class="dropdown user user-menu">
                                 <!-- Menu Toggle Button -->
@@ -168,38 +85,17 @@
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
                                         <img src="/admin-lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
                                         <p>
-                                            {{ Auth::user()->name }} - Invitado
-                                            <small>Miembro desde Nov. 2018</small>
+                                            {{ Auth::user()->name }} 
                                         </p>
-                                    </li>
-                                    <!-- Menu Body -->
-                                    <li class="user-body">
-                                        <div class="row">
-                                            <div class="col-xs-6 text-center">
-                                                <a href="#">Mensajes</a>
-                                            </div>
-                                            <div class="col-xs-6 text-center">
-                                                <a href="#">Incidencias</a>
-                                            </div>
-                                        </div>
-                                        <!-- /.row -->
                                     </li>
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
-                                        <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Mi Perfil</a>
-                                        </div>
                                         <div class="pull-right">
                                             <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Desconectar</a>
                                         </div>
                                     </li>
                                 </ul>
-                            </li>
-                            <!-- Control Sidebar Toggle Button -->
-                            <li>
-                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -220,16 +116,6 @@
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
-                    <!-- search form (Optional) -->
-                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Buscar...">
-                            <span class="input-group-btn">
-                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
                     <!-- /.search form -->
                     <!-- Sidebar Menu -->
                     @canatleast(['user.index'])

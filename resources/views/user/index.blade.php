@@ -109,7 +109,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label>Externo<small> (No puede acceder al ERP interno) </small></label>
+                                <label>Externo<small> (No puede acceder a la plataforma de gestión) </small></label>
                                 <div class="checkbox icheck">
                                     <label>
                                         <input type="checkbox" name="externo" id="externo">

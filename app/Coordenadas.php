@@ -16,9 +16,7 @@ class Coordenadas extends Model
 	  protected $fillable = [
         'CoorX','CoorY','espacio_id'
     ];
-    /**
-     * The users that belong to the role.
-     */
+    
     public function Espacio()
     {
         return $this->belongsToMany('App\Espacio');

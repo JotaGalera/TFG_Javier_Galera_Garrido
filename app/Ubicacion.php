@@ -37,8 +37,4 @@ class Ubicacion extends Model
 	  protected $fillable = [
         'name','address','number','codigo_postal'
     ];
-    /**
-     * The users that belong to the role.
-     */
-
 }

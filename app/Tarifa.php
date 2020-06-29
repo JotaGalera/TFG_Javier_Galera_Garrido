@@ -16,9 +16,7 @@ class Tarifa extends Model
 	  protected $fillable = [
         'name','description','descuento'
     ];
-    /**
-     * The users that belong to the role.
-     */
+    
     public function User()
     {
         return $this->belongsToMany('App\User');

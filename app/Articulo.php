@@ -16,9 +16,7 @@ class Articulo extends Model
 	  protected $fillable = [
         'ubicacion_id','numero_serie','name','description','precio','count'
     ];
-    /**
-     * The users that belong to the role.
-     */
+    
     public function Ubicacion()
     {
         return $this->belongsTo('App\Ubicacion');

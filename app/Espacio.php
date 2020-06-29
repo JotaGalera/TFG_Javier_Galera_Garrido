@@ -16,9 +16,7 @@ class Espacio extends Model
 	  protected $fillable = [
         'ubicacion_id','description','floor','number','precio','id_tarifa'
     ];
-    /**
-     * The users that belong to the role.
-     */
+    
     public function Ubicacion()
     {
         return $this->belongsTo('App\Ubicacion');

@@ -128,26 +128,40 @@ $('#newAlquiler').click(function(){
     $('#modalAlquiler').modal('show');
 });
 
+$(document).on('click','.generate-bill',function(){
+    var id = $(this).attr("id");
+    $.ajax({
+        url : 'alquiler/generarfactura/'+id,
+        type : 'get',
+        dataType: 'json',
+        success:function(data)
+        {
+            alertify.success('Generando.');
+            console.log("hola");
+        }
+    })
+});
+
 $(document).on('click','.delete-alquiler',function(){
-        var id_alquiler = $(this).attr('id');
-        $.ajax({
-            type: 'DELETE',
-            url: 'alquiler/'+id_alquiler,
-            data: {
-                "_token": "{{ csrf_token() }}",
-                "id": id_alquiler
-                },
-            success:function(data)
-            {
-                alertify.success('Alquiler cancelado correctamente.');
-                $('#tableAlquiler').DataTable().ajax.reload(null, false);
+    var id_alquiler = $(this).attr('id');
+    $.ajax({
+        type: 'DELETE',
+        url: 'alquiler/'+id_alquiler,
+        data: {
+            "_token": "{{ csrf_token() }}",
+            "id": id_alquiler
             },
-            error:function(data)
-            {
-                alertify.error('ERROR: No se ha podido cancelar la reserva.');
-            }
-        })
-    });
+        success:function(data)
+        {
+            alertify.success('Alquiler cancelado correctamente.');
+            $('#tableAlquiler').DataTable().ajax.reload(null, false);
+        },
+        error:function(data)
+        {
+            alertify.error('ERROR: No se ha podido cancelar la reserva.');
+        }
+    })
+});
 
 $(document).ready(function() {
   $('#tableAlquiler').DataTable({

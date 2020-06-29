@@ -16,9 +16,7 @@ class AlquilerItems extends Model
 	  protected $fillable = [
         'articulo_id','alquiler_id'
     ];
-    /**
-     * The users that belong to the role.
-     */
+   
     public function Articulo()
     {
         return $this->belongsToMany('App\Articulo');
