@@ -18,7 +18,7 @@ before_install:
   - echo "memory_limit=512M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - mysql -u root tfgjgg_test2 < inicioBBDD.sql
 script:
-  - phpunit  
+  - ./vendor/phpunit/phpunit/phpunit 
 
 services:
   - mysql
