@@ -9,7 +9,7 @@ before_script:
   - cp .env.travis .env
   - composer install
 
-  - php artisan migrate
+  
 
 before_install:
   - mysql -e 'CREATE DATABASE tfgjgg_test2;'
