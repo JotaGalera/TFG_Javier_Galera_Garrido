@@ -155,9 +155,9 @@
         "authors": [
             {
                 "name": "Marcel Pociot",
-                "role": "Developer",
                 "email": "marcel@beyondco.de",
-                "homepage": "https://beyondco.de"
+                "homepage": "https://beyondco.de",
+                "role": "Developer"
             }
         ],
         "description": "Symfony Var-Dump Server for Laravel",
@@ -2567,15 +2567,15 @@
         "authors": [
             {
                 "name": "Alex Bilbie",
-                "role": "Developer",
                 "email": "hello@alexbilbie.com",
-                "homepage": "http://www.alexbilbie.com"
+                "homepage": "http://www.alexbilbie.com",
+                "role": "Developer"
             },
             {
                 "name": "Andy Millington",
-                "role": "Developer",
                 "email": "andrew@noexceptions.io",
-                "homepage": "https://www.noexceptions.io"
+                "homepage": "https://www.noexceptions.io",
+                "role": "Developer"
             }
         ],
         "description": "A lightweight and powerful OAuth 2.0 authorization and resource server library with support for all the core specification grants. This library will allow you to secure your API with OAuth and allow your applications users to approve apps that want to access their data from your API.",
@@ -4517,8 +4517,8 @@
         "authors": [
             {
                 "name": "Sebastian Bergmann",
-                "role": "lead",
-                "email": "sebastian@phpunit.de"
+                "email": "sebastian@phpunit.de",
+                "role": "lead"
             }
         ],
         "description": "Utility class for timing",
@@ -7794,8 +7794,8 @@
         "authors": [
             {
                 "name": "Arne Blankerts",
-                "role": "Developer",
-                "email": "arne@blankerts.de"
+                "email": "arne@blankerts.de",
+                "role": "Developer"
             }
         ],
         "description": "A small library for converting tokenized PHP source code into XML and potentially other formats"
