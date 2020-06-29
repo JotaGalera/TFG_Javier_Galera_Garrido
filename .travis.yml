@@ -2,12 +2,12 @@ language: php
 
 php:
   - 7.1.33
-  
 
 before_script:
   - rm -r TFG_Cliente_new
   - composer clearcache
   - cp .env.travis .env
+  - composer install
   - composer update
 
   - php artisan migrate
