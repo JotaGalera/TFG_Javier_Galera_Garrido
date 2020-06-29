@@ -62,7 +62,7 @@ abstract class TestCase extends BaseTestCase
      *
      * @return void
      */
-    protected function setUp() :void
+    protected function setUp()
     {
         if (! $this->app) {
             $this->refreshApplication();
@@ -132,7 +132,7 @@ abstract class TestCase extends BaseTestCase
      *
      * @return void
      */
-    protected function tearDown(): void
+    protected function tearDown()
     {
         if ($this->app) {
             foreach ($this->beforeApplicationDestroyedCallbacks as $callback) {
