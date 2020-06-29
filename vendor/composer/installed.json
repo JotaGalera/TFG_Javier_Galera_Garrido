@@ -230,7 +230,8 @@
             "permissions",
             "roles",
             "shinobi"
-        ]
+        ],
+        "abandoned": true
     },
     {
         "name": "defuse/php-encryption",
@@ -466,7 +467,8 @@
             "sentry",
             "slack",
             "yarn"
-        ]
+        ],
+        "abandoned": true
     },
     {
         "name": "dnoegel/php-xdg-base-dir",
