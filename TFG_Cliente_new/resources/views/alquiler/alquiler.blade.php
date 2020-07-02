@@ -174,7 +174,7 @@ $(document).ready(function() {
     "processing" : true,
     "serverSide": true,
     "scrollX": true,
-    "ajax": "alquiler/getdatatable/27",
+    "ajax": "alquiler/getdatatable/",
     "columns":[
       {data:'fecha_alquiler'},
       {data:'ubicacion'},

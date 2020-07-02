@@ -130,9 +130,11 @@ class AlquilerController extends Controller
         })->rawColumns(['action'])->make(true);
     }
 
-    public function getDataTableAlquilerUser($user_id)
+    public function getDataTableAlquilerUser()
     {
-        $alquiler = \App\Alquiler::with('Ubicacion','Espacio')->where('user_id','=',$user_id)->get();
+        $id_user = auth()->user()->id;
+
+        $alquiler = \App\Alquiler::with('Ubicacion','Espacio')->where('user_id','=',$id_user)->get();
         return $alquiler;
     }
 }

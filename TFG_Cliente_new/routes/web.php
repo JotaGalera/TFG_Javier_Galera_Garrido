@@ -8,24 +8,6 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 
 Route::get('/dev', function(){
-  
-    $client = new \GuzzleHttp\Client();
-	// $response = $client->request('GET', 'http://tfggit.com/api/alquiler/getdatatable/27', [
-	// 	'headers' => ['Content-Type' => 'application/json',
-	// 					'Authorization' => 'Bearer'.session()->get('token_api')]
-	// ]);
-	// $res = $client->get(env("URL_API").'/api/alquiler/getdatatable/27', [
-    //         'headers' => ['Content-Type' => 'application/json',
-    //                         'Authorization' => 'Bearer'.session()->get('token_api')]
-    //     ]);
-	$response = $client->get("http://tfggit.com/api/alquiler/getdatatable/27", [
-		'headers' => ['Authorization' => 'Bearer ' . session()->get('token_api')]
-	]);
-	$response_body = $response->getBody()->getContents();
-	print_r($response_body);
-	
-	// echo '<pre>' . print_r($response, true) . '</pre>';
-        //return Datatables::of(json_decode($res->getBody()));
        
 });
 
@@ -36,7 +18,7 @@ Route::middleware(['auth.api'])->group(function(){
 	Route::get('user/all', 'UserController@all')->name('user.all'); 
 	Route::get('gis','GisController@index')->name('gis');
 	Route::get('alquiler', 'AlquilerController@index')->name('alquiler');
-	Route::get('alquiler/getdatatable/{user_id}','AlquilerController@getDataTableAlquilerUser')->name('alquiler.getdatatablealquileruser');
+	Route::get('alquiler/getdatatable/','AlquilerController@getDataTableAlquilerUser')->name('alquiler.getdatatablealquileruser');
 	Route::get('ubicacion/all', 'UbicacionController@all')->name('ubicacion.all');
 	Route::get('espacio/getespacioubicaciondisponible/{ubicacion_id}/{fecha}','EspacioController@getEspacioUbicacionDisponible')->name('espacio.getespacioubicaciondisponible');
 

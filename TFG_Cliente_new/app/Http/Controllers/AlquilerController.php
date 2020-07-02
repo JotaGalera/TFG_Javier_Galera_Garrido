@@ -52,10 +52,10 @@ class AlquilerController extends Controller
         return response()->json(['success']);
     }
 
-    public function getDataTableAlquilerUser($id_user)
+    public function getDataTableAlquilerUser()
     {
         $client = new \GuzzleHttp\Client();
-        $response = $client->get("http://tfggit.com/api/alquiler/getdatatable/".$id_user, [
+        $response = $client->get("http://tfggit.com/api/alquiler/getdatatable/", [
             'headers' => ['Authorization' => 'Bearer ' . session()->get('token_api')]
         ]);
         $response_body = json_decode($response->getBody()->getContents());
