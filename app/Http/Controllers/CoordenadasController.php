@@ -69,7 +69,7 @@ class CoordenadasController extends Controller
 
         return Datatables::of($datatable)
         ->addColumn('action',function($obj){
-            return '<a href="#" title="Eliminar coordenada" class="btn btn-xs btn-danger delete-coordenadas" id="'.$obj->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a> <a href="#" title="Modificar coordenada" class="btn btn-xs btn-primary modify-coordenadas" id="'.$obj->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+            return '<a href="#" title="Modificar coordenada" class="btn btn-xs btn-primary modify-coordenadas" id="'.$obj->id.'"><i class="fa fa-pencil" aria-hidden="true"></i></a> <a href="#" title="Eliminar coordenada" class="btn btn-xs btn-danger delete-coordenadas" id="'.$obj->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
         })->make(true);
     }
 }
