@@ -23,11 +23,8 @@ class AlquilerController extends Controller
 
     public function destroy($id)
     {
-        
         $obj = \App\AlquilerItems::where('alquiler_id',$id)->get();
-        print_r("holaasd");
         foreach($obj as $item){
-            print_r("hola".$item);
             $item->delete();
         }
 
@@ -73,6 +70,14 @@ class AlquilerController extends Controller
         return $obj;
     }
 
+    public function acceptAlquiler(Request $request){
+        $obj = \App\Alquiler::find($request->id);
+        $obj->pagado = 1;
+        $obj->update();
+
+        return response()->json(['success'=>'Alquiler aceptado correctamente.']);
+    }
+
     public function getDataTable()
     {
         return Datatables::of(\App\Alquiler::all())
@@ -92,9 +97,21 @@ class AlquilerController extends Controller
             $nombre_space = \App\Espacio::where('id','like',$obj['espacio_id'])->get();
             return $nombre_space[0]['description'].', piso:'.$nombre_space[0]['floor'].', number:'.$nombre_space[0]['number'];
         })
+        ->addColumn('pagado', function($obj){
+            if ($obj->pagado == 1){
+                return '<a href="#" style="pointer-events: none; cursor: default;" class="btn btn-xs btn-success"><i class="fa fa-check" aria-hidden="true"></i></a>';
+            }else{
+                return '<a href="#" style="pointer-events: none; cursor: default;" class="btn btn-xs btn-warning"><i class="fa fa-times" aria-hidden="true"></i></a>';
+            }
+        })
         ->addColumn('action', function($obj){
-        return '<a href="#" data-toggle="tooltip" title="Cancelar alquiler" class="btn btn-xs btn-danger delete-alquiler" id="'.$obj->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
-        })->rawColumns(['action'])->make(true);
+            $cadenaBotones = "";
+            if ($obj->pagado == 0){
+                $cadenaBotones .= '<a href="#" data-toggle="tooltip" title="Aceptar alquiler" class="btn btn-xs btn-info accept-alquiler" id="'.$obj->id.'"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>';
+            }
+            $cadenaBotones .= ' <a href="#" data-toggle="tooltip" title="Cancelar alquiler" class="btn btn-xs btn-danger delete-alquiler" id="'.$obj->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+            return $cadenaBotones;
+        })->rawColumns(['action','pagado'])->make(true);
     }
 
     public function getDataTablePagados()
