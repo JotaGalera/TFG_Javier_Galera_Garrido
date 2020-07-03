@@ -58,7 +58,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title-edit-ubicacion">Editar ubicación</h4>
+                    <h4 class="modal-title-edit-ubicacion">Añadir nueva ubicación</h4>
                 </div>
                 <div class="modal-body">
                     @csrf
@@ -232,6 +232,7 @@ $("#newUbicacion").click(function(){
     $('#btn-update').css('display','none');
     $('#btn-new').css('display','inline');
     $('#role').val(null).trigger('change');
+    $('.modal-title-edit-ubicacion').text('Añadir nueva ubicación');
     $('#modalEdit').modal('show');
 });
 
@@ -275,7 +276,7 @@ $(document).on('click', '.edit', function(){
             $('#btn-update').css('display','inline');
             $('#btn-new').css('display','none');
             $('#action').val('Editar');
-            $('.modal-title').text('Editar ubicación');
+            $('.modal-title-edit-ubicacion').text('Editar ubicación');
         }
     })
 });
@@ -325,7 +326,7 @@ $(document).on('click', '.newSpace', function(){
     var id = $(this).attr("id");
     $('#modalEspacioUpdate').modal('show');
     $('.modal-title-space-edit').text('Añadiendo un espacio al sistema '+id);
-
+    
     $("#formEspacio")[0].reset();
     $('#btn-update-space').css('display','none');
     $('#btn-new-space').css('display','inline');

@@ -60,7 +60,7 @@
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Información de la ubicación</h4>
+                  <h4 class="modal-title">Añadir nuevo usuario</h4>
                 </div>
                 <div class="modal-body">
                     @csrf
@@ -307,6 +307,7 @@ $("#newUser").click(function(){
     $('#btn-new').css('display','inline');
     $('#role').val(null).trigger('change');
     $('#modalEdit').modal('show');
+    $('.modal-title').text('Añadir nuevo usuario');
 });
 </script>
 @endpush
