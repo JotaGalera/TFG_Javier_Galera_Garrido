@@ -147,16 +147,15 @@ class EspacioController extends Controller
         //print_r($array);
         
         $ruta = fopen('myjson.json','w+');
-        
-        
+
         fwrite($ruta,$inicioJson);
         $iteraciones_espacios=sizeof($array_espacios);
-        foreach($array_espacios as $algo){ //Recorremos el array de Espacios
+        foreach($array_espacios as $espacio){ //Recorremos el array de Espacios
             
             //Obtenemos el inventario asociado a cada espacio
-            $inventario = \App\Articulo::where('espacio_id','=',$algo->id)->get();
-            $coordenadas = \App\Coordenadas::where('espacio_id','=',$algo->id)->get();
-            print_r($coordenadas);
+            $inventario = \App\Articulo::where('espacio_id','=',$espacio->id)->get();
+            $coordenadas = \App\Coordenadas::where('espacio_id','=',$espacio->id)->get();
+
             //De Colección a Json
             $json_inventario = $inventario->toJson();
             $json_coordenadas = $coordenadas->toJson();
@@ -165,9 +164,8 @@ class EspacioController extends Controller
             $arrayInventario = json_decode($json_inventario);
             $arrayCoordenadas = json_decode($json_coordenadas);
 
-            $algo->inventario = $arrayInventario; // y así añadimos campos nuevos
-            $algo->coordenadas = $arrayCoordenadas;
-            //print_r ($algo); //Mostrando array
+            $espacio->inventario = $arrayInventario; // y así añadimos campos nuevos
+            $espacio->coordenadas = $arrayCoordenadas;
 
             //APERTURA DE ELEMENTO
             fwrite($ruta, $aperturaElemento);
@@ -182,10 +180,10 @@ class EspacioController extends Controller
             fwrite($ruta,"\"".$nombre_ubicacion."\"");
 
             fwrite($ruta,$tagPostName);
-            fwrite($ruta,"\"".$algo->description."\"");
+            fwrite($ruta,"\"".$espacio->description."\"");
 
             fwrite($ruta,$tagInventario);
-            fwrite($ruta,json_encode($algo->inventario));
+            fwrite($ruta,json_encode($espacio->inventario));
             //--fin relleno tags
             fwrite($ruta,$cierreTags);
             //CIERRE TAGS
@@ -193,7 +191,7 @@ class EspacioController extends Controller
             //APERTURA RELATIONS
             fwrite($ruta,$aperturaRelations);
             //-- relleno relations --
-            fwrite($ruta,$algo->floor);
+            fwrite($ruta,$espacio->floor);
             //--fin relleno relations
             fwrite($ruta,$cierreRelations);
             //CIERRE RELATIONS
@@ -228,13 +226,14 @@ class EspacioController extends Controller
             }
             $iteraciones_espacios--;
         }
-       
-        print_r($array_espacios);
         
         //fwrite($ruta,json_encode($array));
         fwrite($ruta,$finJson);
         fclose($ruta);
-        
+
+        //********** COPIAMOS EL ARCHIVO AL SISTEMA CLIENTE *******************/
+
+        copy('myjson2.json','../TFG_Cliente_new/public/myjson2.json');
     }
 
     public function getDataTable_filtrado($ubicacion_id){
