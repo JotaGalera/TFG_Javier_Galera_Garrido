@@ -43,7 +43,7 @@
                               <th>Descripción</th>
                               <th>Número de Serie</th>
                               <th>Nombre Ubicación</th>
-                              <th>Espacio asocidado:Piso y Nº</th>
+                              <th>Espacio asocidado:Planta y Nº</th>
                               <th>Acción</th>
                           </tr>
                       </thead>

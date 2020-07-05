@@ -40,7 +40,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nombre ubicación</th>
-                                <th>Piso</th>
+                                <th>Planta</th>
                                 <th>Número</th>
                                 <th>Descripción</th>
                                 <th>Precio</th>
@@ -72,10 +72,10 @@
                             <div class="box-body">
                                 <div>
                                     <div class="form-group col-md-6">
-                                        <label>Piso</label>
+                                        <label>Planta</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                            <input type="text" class="form-control" placeholder="Piso" name="floor_space" id="floor_space">
+                                            <input type="text" class="form-control" placeholder="Planta" name="floor_space" id="floor_space">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -170,10 +170,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Piso</label>
+                                    <label>Planta</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-building"></i></span>
-                                        <input type="number" class="form-control" placeholder="Piso" name="floor_space" id="floor_space">
+                                        <input type="number" class="form-control" placeholder="Planta" name="floor_space" id="floor_space">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">

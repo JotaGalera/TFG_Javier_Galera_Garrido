@@ -24,6 +24,7 @@ Route::middleware(['auth.api'])->group(function(){
 
 	Route::get('alquiler/articulos/espacio&ubicacion/{espacio_id}/{fecha}', 'AlquilerController@getProductsAlquiler')->name('alquiler.getproductsalquiler');
 	Route::post('alquiler/delete/{id}','AlquilerController@delete')->name('alquiler.delete');
+	Route::get('alquiler/generarfactura/{id}','AlquilerController@generateBill')->name('alquiler.generatebill');
 	Route::resource('alquiler','AlquilerController');
 	//ROUTE json
 	Route::get('data.json',function(){

@@ -95,7 +95,7 @@ class AlquilerController extends Controller
         })
         ->addColumn('name_space', function($obj){
             $nombre_space = \App\Espacio::where('id','like',$obj['espacio_id'])->get();
-            return $nombre_space[0]['description'].', piso:'.$nombre_space[0]['floor'].', number:'.$nombre_space[0]['number'];
+            return $nombre_space[0]['description'].', planta:'.$nombre_space[0]['floor'].', numero:'.$nombre_space[0]['number'];
         })
         ->addColumn('pagado', function($obj){
             if ($obj->pagado == 1){
@@ -123,7 +123,7 @@ class AlquilerController extends Controller
         })
         ->addColumn('name_space', function($obj){
             $nombre_space = \App\Espacio::where('id','like',$obj['espacio_id'])->get();
-            return $nombre_space[0]['description'].', piso:'.$nombre_space[0]['floor'].', number:'.$nombre_space[0]['number'];
+            return $nombre_space[0]['description'].', planta:'.$nombre_space[0]['floor'].', numero:'.$nombre_space[0]['number'];
         })
         ->addColumn('action', function($obj){
         return '<a href="#" data-toggle="tooltip" title="Cancelar alquiler" class="btn btn-xs btn-danger delete-alquiler" id="'.$obj->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
@@ -136,5 +136,65 @@ class AlquilerController extends Controller
 
         $alquiler = \App\Alquiler::with('Ubicacion','Espacio')->where('user_id','=',$id_user)->get();
         return $alquiler;
+    }
+
+    public function generateBill($id){
+        $id = 84;
+        $coste = 0;
+        $tablaArticulos = '<table style="width: 100%; border: 1px solid black;"><tr style="width: 100%; border: 1px solid black;"><th>Material</th><th>Nº Serie</th><th>Precio/€</th></tr>';
+        $id_user = auth()->user()->id;
+        $user = \App\User::find($id_user)->get();
+        $alquiler = \App\Alquiler::where('id',$id)->get();
+        $espacio = \App\Espacio::find($alquiler[0]->espacio_id)->get();
+        $ubicacion = \App\Ubicacion::find($espacio[0]->ubicacion_id)->get();
+        $alquilerItems = \App\AlquilerItems::where('alquiler_id',$id)->get();
+        
+        
+        
+        setlocale(LC_TIME, 'es_ES');
+        $date = date_create($alquiler[0]->fecha_alquiler);
+        $fecha_alquiler = date_format($date, 'l jS F Y');
+        
+        $tablaArticulos .= '<tr style="width: 100%; border: 1px solid black;">
+                <td style="width: 100%; border: 1px solid black;">Espacio: '.$espacio[0]->description.'</td>
+                <td style="width: 100%; border: 1px solid black;"></td>
+                <td style="width: 100%; border: 1px solid black;">'.$espacio[0]->precio.'</td>
+            </tr>';
+        $coste += $espacio[0]->precio;
+
+        foreach ($alquilerItems as $item){
+            $articulo = \App\Articulo:: where('id',$item->articulo_id)->get();
+            $coste += $articulo[0]->precio;
+            $tablaArticulos .= '<tr style="width: 100%; border: 1px solid black;">
+                <td style="width: 100%; border: 1px solid black;">'.$articulo[0]->name.'<br>Descripción: '.$articulo[0]->description.'</td>
+                <td style="width: 100%; border: 1px solid black;">'.$articulo[0]->numero_serie.'</td>
+                <td style="width: 100%; border: 1px solid black;">'.$articulo[0]->precio.'</td>
+            </tr>';
+        }
+        $tablaArticulos .= '</table>';
+        $tarifa = \App\Tarifa::where('id',$user[0]->id_tarifa)->get();
+        $descuento = ($coste * $tarifa[0]->descuento)/100;
+        $costeFinal = $coste - $descuento;
+        
+        $factura = '<h1>Justificante de reserva:</h1>'
+                    .'<h2>Detalles:</h2>'
+                    .'<p><span style="font-weight: bold;">Fecha:</span> '.strftime("%A, %d de %B de %Y",strtotime($fecha_alquiler)).'</p>'
+                    .'<p><span style="font-weight: bold;">Cliente:</span> '.$user[0]->name.'</p>'
+                    .'<p><span style="font-weight: bold;">Email:</span> '.$user[0]->email.'</p>'
+                    .'<p><span style="font-weight: bold;">Ubicacion:</span> '.$ubicacion[0]->name
+                    .'<p><span style="font-weight: bold;">Espacio:</span> '.$espacio[0]->description
+                    .' <span style="font-weight: bold;">Planta:</span> '.$espacio[0]->floor
+                    .' <span style="font-weight: bold;">Número:</span> '.$espacio[0]->number. '</p>'
+                    .$tablaArticulos
+                    .'<p><span style="font-weight: bold;">Coste:</span> '.round($coste,2).' € </p>'
+                    .'<p><span style="font-weight: bold;">Descuento:</span> -'.$descuento.' € ('.$tarifa[0]->descuento.'%) </p>'
+                    .'<p><span style="font-weight: bold;">Total (IVA incluido):</span> '.round($costeFinal,2).' € </p>'
+                    .'<p><span style="font-weight: bold;">IBAN:</span> ESXX ABCD EFGH IJKL MNOP QRST</p>'
+                    .'<hr>'
+                    .'<p><span style="font-weight: bold;">NOTA ACLARATORIA:</span> adjuntar justificante de pago al correo para hacer valida la reserva, al menos con 72 horas de antelación a la reserva realizada.</p>'
+                    ;
+                    
+        return  $factura;
+        
     }
 }

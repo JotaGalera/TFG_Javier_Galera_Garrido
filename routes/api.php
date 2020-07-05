@@ -20,7 +20,8 @@ Route::middleware('auth:api')->group(function () {
     
     Route::get('/alquiler/getdatatable','AlquilerController@getDataTableAlquilerUser')->name('alquiler.getdatatablealquileruser');
     Route::post('/alquiler','AlquilerController@store')->name('alquiler.store');
-    Route::resource('alquiler','AlquilerController');
+    Route::get('/alquiler/generarfactura/{id}','AlquilerController@generateBill')->name('alquiler.generatebill');
+	Route::resource('alquiler','AlquilerController');
     //USUARIOS
     Route::get('/user/all', 'UserController@all')->name('user.all');
 });

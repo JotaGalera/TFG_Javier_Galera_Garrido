@@ -182,6 +182,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Anam\PhantomMagick\ConverterServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -234,6 +235,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Converter' => Anam\PhantomMagick\Facades\Converter::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

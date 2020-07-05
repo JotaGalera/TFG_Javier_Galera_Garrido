@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Controllers\Auth;
 use DateTime;
+use App;
+use PDF;
 
 class AlquilerController extends Controller
 {
@@ -78,7 +80,7 @@ class AlquilerController extends Controller
             if($response_body->notes !== null) return $response_body->notes;
             else return '';
         })->addColumn('action', function($response_body){
-            return '<a href="#" data-toggle="tooltip" title="Añadir articulos" class="btn btn-xs btn-success add-alquiler-item" id="'.$response_body->id.'"><i class="fa fa-plus-square" aria-hidden="true"></i></a> <a href="#" data-toggle="tooltip" title="Cancelar alquiler" class="btn btn-xs btn-danger delete-alquiler" id="'.$response_body->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
+            return '<a href="#" data-toggle="tooltip" title="Generar factura" class="btn btn-xs btn-success generate-bill" id="'.$response_body->id.'"><i class="fa fa-plus-square" aria-hidden="true"></i></a> <a href="#" data-toggle="tooltip" title="Cancelar alquiler" class="btn btn-xs btn-danger delete-alquiler" id="'.$response_body->id.'"><i class="fa fa-trash" aria-hidden="true"></i></a>';
         })->rawColumns(['action'])->make(true);
     }
 
@@ -90,5 +92,21 @@ class AlquilerController extends Controller
         ]);
         $response_body = json_decode($response->getBody()->getContents());
         return $response_body;
+    }
+
+    public function generateBill($id){
+        $client = new \GuzzleHttp\Client();
+        
+        $response = $client->get("http://tfggit.com/api/alquiler/generarfactura/". $id , [
+            'headers' => ['Authorization' => 'Bearer ' . session()->get('token_api')]
+        ]);
+
+        $bill = $response->getBody()->getContents();
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML('<h1>'.$bill.'</h1>');
+        return $pdf->download('hola.pdf');
+
+       
     }
 }

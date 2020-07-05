@@ -128,18 +128,58 @@ $('#newAlquiler').click(function(){
     $('#modalAlquiler').modal('show');
 });
 
+
+
 $(document).on('click','.generate-bill',function(){
-    var id = $(this).attr("id");
+    var id_alquiler = $(this).attr('id');
     $.ajax({
-        url : 'alquiler/generarfactura/'+id,
-        type : 'get',
-        dataType: 'json',
-        success:function(data)
-        {
-            alertify.success('Generando.');
-            console.log("hola");
+        type: 'GET',
+        url: 'alquiler/generarfactura/'+id_alquiler,
+        contentType: false,
+        processData: false,
+            //xhrFields is what did the trick to read the blob to pdf
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function (response, status, xhr) {
+
+            var filename = "";                   
+            var disposition = xhr.getResponseHeader('Content-Disposition');
+
+                if (disposition) {
+                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                var matches = filenameRegex.exec(disposition);
+                if (matches !== null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+            } 
+            var linkelem = document.createElement('a');
+            try {
+                    var blob = new Blob([response], { type: 'application/octet-stream' });                        
+                if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                    window.navigator.msSaveBlob(blob, filename);
+                } else {
+                    var URL = window.URL || window.webkitURL;
+                    var downloadUrl = URL.createObjectURL(blob);
+                    if (filename) { 
+                        var a = document.createElement("a");
+                        if (typeof a.download === 'undefined') {
+                            window.location = downloadUrl;
+                        } else {
+                            a.href = downloadUrl;
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.target = "_blank";
+                            a.click();
+                        }
+                    } else {
+                        window.location = downloadUrl;
+                    }
+                }   
+            } catch (ex) {
+                console.log(ex);
+            } 
         }
-    })
+        
+    })    
 });
 
 $(document).on('click','.delete-alquiler',function(){
@@ -246,12 +286,12 @@ $('#espacio_mod').select2({
         processResults: function (data) {
             return {
                 results: $.map(data, function(obj) {
-                    return { id: obj.id, text: obj.description + " Piso:" + obj.floor +" Nº:" + obj.number };
+                    return { id: obj.id, text: obj.description + " Planta:" + obj.floor +" Nº:" + obj.number };
                 })
             };
         }
     }
-}).on('chage' , function (e) {
+}).on('change' , function (e) {
     $("#articulo").val(null).trigger("change");
 });
 
