@@ -16,6 +16,14 @@
 </section>
 <!-- Main content -->
 <section class="content container-fluid">
+    <div class="form-group col-xs-4 pull-right">
+        <div class="form-group">
+            <div style="padding-right: 10px;">
+                <select id="selectUbicacion" class="form-control select2" name="state"></select>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
   <div id="map" style="height:480px;"></div>
 </section>
 <!-- /.content -->
@@ -234,7 +242,7 @@ $('#espacio_coord').select2({
         processResults: function (data) {
             return {
                 results: $.map(data, function(obj) {
-                    return { id: obj.id, text: obj.description+" [Piso:"+obj.floor+", Numero:"+obj.number+"] " };
+                    return { id: obj.id, text: obj.description+" [Planta:"+obj.floor+", Numero:"+obj.number+"] " };
                 })
             };
         },
@@ -379,67 +387,78 @@ function infoLatLng(e) {
     evento.latlng.lng = e.target._latlng.lng
     c.setCoordinates(evento);
 }
-
-// Lectura de mapa desde json
-$.getJSON("myjson.json", function(geoJSON) {
-    var indoorLayer = new L.Indoor(geoJSON, {
-        getLevel: function(feature) {
-            if (feature.properties.relations.length === 0)
-                return null;
-            return feature.properties.relations[0].reltags.level;
-        },
-        onEachFeature: function(feature, layer) {
-            var name = JSON.stringify(feature.properties.tags.name);
-            var postname = JSON.stringify(feature.properties.tags.postname);
-            var arrayFornitures = Array.from(feature.properties.tags.inventario);
-            var descriptionFornitures = ""
-            for (i = 0; i < arrayFornitures.length; i++) {
-                descriptionFornitures += "<br>-" + arrayFornitures[i].name + ", desc: " + arrayFornitures[i].description;
-            }
-        
-            if(postname){
-                var cadenafinal = "Edificio: "+name+"<br>Tipo de hab.:"+postname+"<br>Inventario:"+descriptionFornitures;
-            }else{
-                var cadenafinal = name;
-            }
-            layer.bindPopup(cadenafinal);
-        },
-        style: function(feature) {
-            var fill = '#F6EFBE';
-            if (feature.properties.tags.buildingpart === 'hall') {
-                fill = '#CAC9D9';
-            } else if (feature.properties.tags.buildingpart === 'conjunto_habitaciones') {
-                fill = '#AAA9A9';
-            } else if (feature.properties.tags.buildingpart === 'conserjeria') {
-                fill = '#EBCAEA';
-            } else if (feature.properties.tags.buildingpart === 'aula') {
-                fill = '#CAC9C9';
-            }
+ 
+$('#selectUbicacion').select2({
+    minimumResultsForSearch: Infinity,
+    placeholder: " - Busca y selecciona una ubicación - ",
+    ajax: {
+        url: '/ubicacion/getubicacionesuser/',
+        processResults: function (data) {
             return {
-                fillColor: fill,
-                weight: 1,
-                color: '#666',
-                fillOpacity: 1
+            results: $.map(data, function(obj) {
+                return { id: obj.id, text: obj.name };
+                })
             };
         }
-    });
-    indoorLayer.setLevel("1"); // set legend flat in right corner down
-    indoorLayer.addTo(map);
-    var levelControl = new L.Control.Level({
-        level: "1",
-        levels: indoorLayer.getLevels()
-    });
-    // Connect the level control to the indoor layer
-    levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
-    levelControl.addTo(map);
-
+        }
+}).on('change' , function (e) {
     
+    $name = $('#selectUbicacion').text()+".json";
+
+    $.getJSON($name, function(geoJSON) {
+        var indoorLayer = new L.Indoor(geoJSON, {
+            getLevel: function(feature) {
+                if (feature.properties.relations.length === 0)
+                    return null;
+                return feature.properties.relations[0].reltags.level;
+            },
+            onEachFeature: function(feature, layer) {
+                var name = JSON.stringify(feature.properties.tags.name);
+                var postname = JSON.stringify(feature.properties.tags.postname);
+                var arrayFornitures = Array.from(feature.properties.tags.inventario);
+                var descriptionFornitures = ""
+                for (i = 0; i < arrayFornitures.length; i++) {
+                    descriptionFornitures += "<br>-" + arrayFornitures[i].name + ", desc: " + arrayFornitures[i].description;
+                }
+            
+                if(postname){
+                    var cadenafinal = "Edificio: "+name+"<br>Tipo de hab.:"+postname+"<br>Inventario:"+descriptionFornitures;
+                }else{
+                    var cadenafinal = name;
+                }
+                layer.bindPopup(cadenafinal);
+            },
+            style: function(feature) {
+                var fill = '#F6EFBE';
+                if (feature.properties.tags.buildingpart === 'hall') {
+                    fill = '#CAC9D9';
+                } else if (feature.properties.tags.buildingpart === 'conjunto_habitaciones') {
+                    fill = '#AAA9A9';
+                } else if (feature.properties.tags.buildingpart === 'conserjeria') {
+                    fill = '#EBCAEA';
+                } else if (feature.properties.tags.buildingpart === 'aula') {
+                    fill = '#CAC9C9';
+                }
+                return {
+                    fillColor: fill,
+                    weight: 1,
+                    color: '#666',
+                    fillOpacity: 1
+                };
+            }
+        });
+        indoorLayer.setLevel("1"); // set legend flat in right corner down
+        indoorLayer.addTo(map);
+        var levelControl = new L.Control.Level({
+            level: "1",
+            levels: indoorLayer.getLevels()
+        });
+        // Connect the level control to the indoor layer
+        levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
+        levelControl.addTo(map);
+
+        
+    });
 });
-        
-
-
-        
-        
-  
 </script>
 @endpush

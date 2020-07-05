@@ -13,6 +13,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/logout', 'AuthController@logout')->name('logout'); 
     
     Route::get('/ubicacion/all','UbicacionController@all')->name('ubicacion.all');
+    Route::get('/ubicacion/getubicacionesuser','UbicacionController@getUbicacionesUser')->name('ubicacion.getUbicacionesUser');
     
     Route::get('/products/espacio&ubicacion/{espacio_id}/{fecha}','ArticuloController@getProductsAlquiler')->name('articulo.getproductsalquiler');
     

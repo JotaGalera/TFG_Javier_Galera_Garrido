@@ -144,9 +144,8 @@ class EspacioController extends Controller
         foreach($array_ubicacion as $ubicacion){
             $nombre_ubicacion = $ubicacion->name;
         } 
-        //print_r($array);
         
-        $ruta = fopen('myjson.json','w+');
+        $ruta = fopen($nombre_ubicacion.'.json','w+');
 
         fwrite($ruta,$inicioJson);
         $iteraciones_espacios=sizeof($array_espacios);
@@ -233,7 +232,7 @@ class EspacioController extends Controller
 
         //********** COPIAMOS EL ARCHIVO AL SISTEMA CLIENTE *******************/
 
-        copy('myjson2.json','../TFG_Cliente_new/public/myjson2.json');
+        copy('myjson2.json','../TFG_Cliente_new/public/'.$nombre_ubicacion.'.json');
     }
 
     public function getDataTable_filtrado($ubicacion_id){

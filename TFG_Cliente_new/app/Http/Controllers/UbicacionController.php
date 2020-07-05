@@ -23,4 +23,14 @@ class UbicacionController extends Controller
         $response_body = json_decode($response->getBody()->getContents());
         return $response_body;
     }
+
+    public function getUbicacionesUser()
+    {
+        $client = new \GuzzleHttp\Client();
+        $response = $client->get("http://tfggit.com/api/ubicacion/getubicacionesuser", [
+            'headers' => ['Authorization' => 'Bearer ' . session()->get('token_api')]
+        ]);
+        $response_body = json_decode($response->getBody()->getContents());
+        return $response_body;
+    }
 }
