@@ -58,7 +58,7 @@ class EspacioController extends Controller
         $obj->description = $request->get('description_space');
         $obj->floor       = $request->get('floor_space');
         $obj->number      = $request->get('number_space');
-
+        $obj->precio      = $request->get('precio_space');
         $obj->update();
 
         return response()->json(['success'=>'Espacio modificado correctamente.']);

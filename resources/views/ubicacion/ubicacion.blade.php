@@ -132,6 +132,7 @@
                                 <th>Planta</th>
                                 <th>Número</th>
                                 <th>Descripción</th>
+                                <th>Precio</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
@@ -176,6 +177,13 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-list-ol"></i></span>
                                         <input type="text" class="form-control" placeholder="Descripción" name="description_space" id="description_space">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Precio</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-eur"></i></span>
+                                        <input type="text" class="form-control" placeholder="Precio" name="precio_space" id="precio_space">
                                     </div>
                                 </div>
                             </div>
@@ -358,6 +366,7 @@ $(document).on('click', '.space', function(){
     $('#modalEspacio').modal('show');
     $('.modal-title-space').text('Lista de espacios del sistema '+id);
     $('#tableEspacio').DataTable({
+      "responsive": true,
       "paging": true,
       "lengthChange": false,
       "searching": true,
@@ -374,6 +383,7 @@ $(document).on('click', '.space', function(){
           {data:'floor'},
           {data:'number'},
           {data:'description'},
+          {data:'precio'},
           {data:'action', orderable:false, searchable: false},
       ],
 
@@ -397,6 +407,7 @@ $(document).on('click', '.edit-space', function(){
             $('#floor_space').val(data.floor);
             $('#number_space').val(data.number);
             $('#description_space').val(data.description);
+            $('#precio_space').val(data.precio);
             $('#id').val(data.id);
             $('#id_ubicacion').val(data.ubicacion_id)
 
