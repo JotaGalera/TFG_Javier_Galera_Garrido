@@ -87,23 +87,8 @@
                                             <small>Miembro desde Nov. 2018</small>
                                         </p>
                                     </li>
-                                    <!-- Menu Body -->
-                                    <li class="user-body">
-                                        <div class="row">
-                                            <div class="col-xs-6 text-center">
-                                                <a href="#">Mensajes</a>
-                                            </div>
-                                            <div class="col-xs-6 text-center">
-                                                <a href="#">Incidencias</a>
-                                            </div>
-                                        </div>
-                                        <!-- /.row -->
-                                    </li>
-                                    <!-- Menu Footer-->
+                                    
                                     <li class="user-footer">
-                                        <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Mi Perfil</a>
-                                        </div>
                                         <div class="pull-right">
                                             <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Desconectar</a>
                                         </div>

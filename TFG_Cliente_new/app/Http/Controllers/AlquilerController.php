@@ -105,7 +105,7 @@ class AlquilerController extends Controller
 
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML('<h1>'.$bill.'</h1>');
-        return $pdf->download('hola.pdf');
+        return $pdf->download('justificante.pdf');
 
        
     }
