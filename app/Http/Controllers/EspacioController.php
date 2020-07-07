@@ -232,7 +232,7 @@ class EspacioController extends Controller
 
         //********** COPIAMOS EL ARCHIVO AL SISTEMA CLIENTE *******************/
 
-        copy('myjson2.json','../TFG_Cliente_new/public/'.$nombre_ubicacion.'.json');
+        copy($nombre_ubicacion.'.json','../TFG_Cliente_new/public/'.$nombre_ubicacion.'.json');
     }
 
     public function getDataTable_filtrado($ubicacion_id){

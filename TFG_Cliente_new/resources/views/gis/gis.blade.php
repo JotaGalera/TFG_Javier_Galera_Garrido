@@ -53,6 +53,8 @@ var c = new L.Control.Coordinates();
 c.addTo(map);
 
 var delMarker;
+var indoorLayer = '';
+var levelControl = '';
 
 // EVENTO CLICK EN EL MAPA
 map.on('click', function(e) {
@@ -99,10 +101,14 @@ $('#selectUbicacion').select2({
         }
 }).on('change' , function (e) {
     
-    $name = $('#selectUbicacion').text()+".json";
+    $name = $("#selectUbicacion option:selected").text()+".json";
+    map.removeLayer(indoorLayer);
+    if (levelControl){
+        map.removeControl(levelControl);
+    }
 
     $.getJSON($name, function(geoJSON) {
-        var indoorLayer = new L.Indoor(geoJSON, {
+        indoorLayer = new L.Indoor(geoJSON, {
             getLevel: function(feature) {
                 if (feature.properties.relations.length === 0)
                     return null;
@@ -145,7 +151,7 @@ $('#selectUbicacion').select2({
         });
         indoorLayer.setLevel("1"); // set legend flat in right corner down
         indoorLayer.addTo(map);
-        var levelControl = new L.Control.Level({
+        levelControl = new L.Control.Level({
             level: "1",
             levels: indoorLayer.getLevels()
         });
