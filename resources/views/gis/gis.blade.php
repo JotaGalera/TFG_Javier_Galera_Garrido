@@ -199,14 +199,13 @@ $(document).on('click', '#actualiza_json' , function(){
         data: $("#formUpdate").serialize(),
         success:function(data)
         {
-            console.log(data);
             alertify.success('Ubicacion actualizada');
             $("#articulo").prop('selectedIndex',0);
+            location.reload();
             
         },
         error:function(data)
         {
-            console.log(data);
             alertify.success('ERROR: No se ha podido actualizar la ubicación.');
         }
     })
@@ -335,8 +334,6 @@ $(document).on('click','#update_coord',function(){
     })
 });
 
-// MAPA //
-//https://epsg.io/map#srs=4326&x=-3.624518&y=37.197977&z=19&layer=streets
 
 var osmUrl = '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             osm = new L.TileLayer(osmUrl, {
@@ -357,6 +354,8 @@ var c = new L.Control.Coordinates();
 c.addTo(map);
 
 var delMarker;
+var indoorLayer = '';
+var levelControl = '';
 
 // EVENTO CLICK EN EL MAPA
 map.on('click', function(e) {
@@ -387,7 +386,9 @@ function infoLatLng(e) {
     evento.latlng.lng = e.target._latlng.lng
     c.setCoordinates(evento);
 }
- 
+
+
+
 $('#selectUbicacion').select2({
     minimumResultsForSearch: Infinity,
     placeholder: " - Busca y selecciona una ubicación - ",
@@ -402,11 +403,14 @@ $('#selectUbicacion').select2({
         }
         }
 }).on('change' , function (e) {
+    $name = $("#selectUbicacion option:selected").text()+".json";
+    map.removeLayer(indoorLayer);
+    if (levelControl){
+        map.removeControl(levelControl);
+    }
     
-    $name = $('#selectUbicacion').text()+".json";
-
     $.getJSON($name, function(geoJSON) {
-        var indoorLayer = new L.Indoor(geoJSON, {
+        indoorLayer = new L.Indoor(geoJSON, {
             getLevel: function(feature) {
                 if (feature.properties.relations.length === 0)
                     return null;
@@ -449,15 +453,13 @@ $('#selectUbicacion').select2({
         });
         indoorLayer.setLevel("1"); // set legend flat in right corner down
         indoorLayer.addTo(map);
-        var levelControl = new L.Control.Level({
+        levelControl = new L.Control.Level({
             level: "1",
             levels: indoorLayer.getLevels()
         });
         // Connect the level control to the indoor layer
         levelControl.addEventListener("levelchange", indoorLayer.setLevel, indoorLayer);
         levelControl.addTo(map);
-
-        
     });
 });
 </script>
